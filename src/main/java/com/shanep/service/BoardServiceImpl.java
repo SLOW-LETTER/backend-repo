@@ -19,7 +19,8 @@ public class BoardServiceImpl implements BoardService{
 
 	@Autowired
 	BoardRepository repository;
-	
+
+	@Override
 	public Result updateBoard(Board board) {
 		Optional<Board> search = repository.findById(board.getBoardno());
 		Result result = new Result();
@@ -31,7 +32,7 @@ public class BoardServiceImpl implements BoardService{
 		}
 		return result;
 	}
-	
+	@Override
 	public Result deleteBoard(int boardno) {
 		Result result = new Result();
 		boolean isPresent = repository.findById(boardno).isPresent();

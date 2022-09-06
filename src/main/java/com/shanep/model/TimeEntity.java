@@ -6,29 +6,29 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class TimeEntity {
-    @Column(name = "created_date")
+    @Column(name = "createdAt", updatable = false)
     @CreatedDate
     private String createdDate;
 
-    @Column(name = "modified_date")
+    @Column(name = "updatedAt" )
     @LastModifiedDate
     private String modifiedDate;
 
     @PrePersist
     public void onPrePersist(){
-        this.createdDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd.HH.mm.ss"));
         this.modifiedDate = this.createdDate;
     }
 
     @PreUpdate
     public void onPreUpdate(){
-        this.modifiedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd.HH.mm.ss"));
     }
 }
