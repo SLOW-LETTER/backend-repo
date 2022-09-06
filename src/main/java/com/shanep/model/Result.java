@@ -8,4 +8,6 @@ import lombok.Setter;
 public class Result {
 	private ErrorResponse error;
 	private Object payload;
+	private Object templates;
+	private String message;
 }

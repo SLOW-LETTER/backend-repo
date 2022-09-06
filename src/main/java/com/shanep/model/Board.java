@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @ToString
 public class Board {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer boardno;
