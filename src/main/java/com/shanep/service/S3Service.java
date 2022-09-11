@@ -12,6 +12,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @package : com.shanep.config
+ * @name : S3Service
+ * @create-date: 2022.09.06
+ * @author : 김현진
+ * @version : 1.0.0
+ *
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
+
+
 @Service
 @RequiredArgsConstructor
 public class S3Service {

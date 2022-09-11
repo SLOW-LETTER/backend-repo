@@ -9,6 +9,19 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
+/**
+ * @package : com.shanep.config
+ * @name : Template
+ * @create-date: 2022.09.06
+ * @author : 김현진
+ * @version : 1.0.0
+ *
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
+
+
 @Entity
 @Getter
 @SQLDelete(sql = "UPDATE template SET is_deleted = true WHERE id = ?")
@@ -35,13 +48,4 @@ public class Template extends TimeEntity{
         this.fileName = fileName;
         this.fileUrl = fileUrl;
     }
-
-//    @Override
-//    public String toString() {
-//        return "FileEntity{" +
-//                "id=" + id +
-//                ", fileName='" + fileName + '\'' +
-//                ", s3Url='" + fileUrl + '\'' +
-//                '}';
-//    }
 }

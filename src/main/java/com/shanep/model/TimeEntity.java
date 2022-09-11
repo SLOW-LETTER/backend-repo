@@ -13,11 +13,11 @@ import java.time.format.DateTimeFormatter;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class TimeEntity {
-    @Column(name = "created_date")
+    @Column(name = "created_at")
     @CreatedDate
     private String createdDate;
 
-    @Column(name = "modified_date")
+    @Column(name = "modified_at")
     @LastModifiedDate
     private String modifiedDate;
 

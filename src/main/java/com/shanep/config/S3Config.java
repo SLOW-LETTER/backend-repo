@@ -7,6 +7,18 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @package : com.shanep.config
+ * @name : S3Config
+ * @create-date: 2022.09.06
+ * @author : 김현진
+ * @version : 1.0.0
+ *
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
+
 @Configuration
 public class S3Config {
     @Value("${cloud.aws.credentials.access-key}")
