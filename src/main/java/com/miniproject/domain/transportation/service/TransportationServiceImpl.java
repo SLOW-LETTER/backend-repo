@@ -8,11 +8,20 @@ import com.miniproject.global.enumpkg.ServiceResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @package : com.miniproject.domain.transportation.service
+ * @name : TransportationServiceImpl
+ * @create-date: 2022.09.06
+ * @author : 원우연
+ * @version : 1.0.0
+ *
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @Service
 @Slf4j
 public class TransportationServiceImpl implements TransportationService {
@@ -30,7 +39,6 @@ public class TransportationServiceImpl implements TransportationService {
     @Override
     public Result retrieveTransportationList() {
         List<Transportation> list = transportationRepository.findAllByOrderByTransportationIdDesc();
-        System.out.println("리스트의 수?"+list);
         Result result = new Result();
         result.setPayload(list);
         return result;
@@ -41,29 +49,30 @@ public class TransportationServiceImpl implements TransportationService {
         Optional<Transportation> optionTransportation = transportationRepository.findById(transportationId);
         Result result = new Result();
         if(optionTransportation.isPresent()){
-            result.setPayload(optionTransportation.get());
-        } else{ 
-            result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            if(optionTransportation.get().is_deleted() == false) {
+                result.setPayload(optionTransportation.get());
+            }
+        } else{
+            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         }
         return result;
     }
 
-    @Transactional
     @Override
-    public Result updateTransportation(Transportation transportation,int transportationId){
-        System.out.println("로그를 찍어봅시당."+transportationId+"\t겟아이디:"+transportation.getTransportationId());
-
-        Optional<Transportation> search = transportationRepository.findById(transportationId);
-        System.out.println(search.get());
+    public Result updateTransportation(Transportation transportation, int transportationId) {
+        Optional<Transportation> updateTransportation = transportationRepository.findById(transportationId);
         Result result = new Result();
-
-        if(search.isPresent()){
-            System.out.println("뭘까 이건>"+search.isPresent());
-             transportation.setVelocity(transportation.getVelocity());
-             transportation.setName(transportation.getName());
+        if(updateTransportation.isPresent()){
+            if(transportation.getName() != null) {
+                updateTransportation.get().setName(transportation.getName());
+            }
+            if(transportation.getVelocity() != 0){
+                updateTransportation.get().setVelocity(transportation.getVelocity());
+            }
+            transportation= transportationRepository.save(updateTransportation.get());
             result.setPayload(transportation);
         } else{
-            result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         }
         return result;
     }
@@ -73,7 +82,7 @@ public class TransportationServiceImpl implements TransportationService {
         Result result = new Result();
         boolean isPresent = transportationRepository.findById(transportationId).isPresent();
         if(!isPresent){
-            result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         } else{
             transportationRepository.deleteById(transportationId);
         }
