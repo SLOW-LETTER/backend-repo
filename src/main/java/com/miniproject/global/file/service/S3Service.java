@@ -12,6 +12,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @package : com.miniproject.global.file.service
+ * @name : S3Service
+ * @create-date: 2022.09.06
+ * @author : 김현진
+ * @version : 1.0.0
+ *
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @Service
 @RequiredArgsConstructor
 public class S3Service {
@@ -19,7 +30,7 @@ public class S3Service {
     private String bucket;
     private final AmazonS3 amazonS3;
 
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
+    public String uploadFile(MultipartFile multipartFile, String dir) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
 
         //파일 형식 구하기
@@ -40,7 +51,7 @@ public class S3Service {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(contentType);
 
-            amazonS3.putObject(new PutObjectRequest(bucket, fileName, multipartFile.getInputStream(), metadata)
+            amazonS3.putObject(new PutObjectRequest(bucket, dir + "/" + fileName, multipartFile.getInputStream(), metadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (AmazonServiceException e) {
             e.printStackTrace();
@@ -55,6 +66,6 @@ public class S3Service {
         for (S3ObjectSummary object: objectSummaries) {
             System.out.println("object = " + object.toString());
         }
-        return amazonS3.getUrl(bucket, fileName).toString();
+        return amazonS3.getUrl(bucket, dir + "/" + fileName).toString(); // dir 추가?
     }
 }

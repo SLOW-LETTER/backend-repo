@@ -4,6 +4,17 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+* @package : com.miniproject.domain.user.entity
+* @name : Role
+* @create-date: 2022-09-15
+* @author : 박수현
+* @version : 1.0.0
+* 
+* @update-date :
+* @update-author : 000
+* @update-description : 
+*/
 @Getter
 @ToString
 //@RequiredArgsConstructor

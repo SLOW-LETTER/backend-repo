@@ -2,7 +2,6 @@ package com.miniproject.domain.board.service;
 
 import com.miniproject.enumpkg.ServiceResult;
 import com.miniproject.domain.board.Board;
-import com.miniproject.global.exception.ErrorResponse;
 import com.miniproject.global.result.Result;
 import com.miniproject.domain.board.repository.BoardRepository;
 import org.apache.logging.log4j.LogManager;

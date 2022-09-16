@@ -7,6 +7,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+* @package : com.miniproject.domain.user.dto
+* @name : UserDto
+* @create-date: 2022-09-13
+* @author : 박수현
+* @version : 1.0.0
+*
+* @update-date :
+* @update-author : 000
+* @update-description :
+*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +25,6 @@ import lombok.NoArgsConstructor;
 public class UserDto {
     private Long id;
     private String email;
-
     private String name;
     private String password;
     private String phone;

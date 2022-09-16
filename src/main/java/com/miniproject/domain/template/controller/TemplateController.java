@@ -12,6 +12,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+/**
+ * @package : com.miniproject.domain.template.controller
+ * @name : TemplateController
+ * @create-date: 2022.09.06
+ * @author : 김현진
+ * @version : 1.0.0
+ *
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @RestController
 @RequestMapping(value="/api/v1/templates")
 @RequiredArgsConstructor
@@ -34,7 +45,7 @@ public class TemplateController {
 
     @PostMapping
     public Result createTemplate(TemplateDto templateDto) throws IOException{
-        String url = s3Service.uploadFile(templateDto.getFile());
+        String url = s3Service.uploadFile(templateDto.getFile(), "templates");
         templateDto.setUrl(url);
         Result result = templateService.createTemplate(templateDto);
         return result;

@@ -12,6 +12,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @package : com.miniproject.domain.template.service
+ * @name : TemplateServiceImpl
+ * @create-date: 2022.09.06
+ * @author : 김현진
+ * @version : 1.0.0
+ *
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @Service
 public class TemplateServiceImpl implements TemplateService {
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(TemplateServiceImpl.class);
@@ -19,17 +30,11 @@ public class TemplateServiceImpl implements TemplateService {
     @Autowired
     TemplateRepository repository;
 
-    /**
-     * @param : 변수명 - 변수기능, 변수명 - 변수기능
-     * @author : HYEON JIN
-     * @method: 템플릿 생성 기능
-     * @create-date: 2022.09.05
-     */
     public Result createTemplate(TemplateDto templateDto) {
         Template template = new Template(templateDto.getFileName(), templateDto.getUrl());
         repository.save(template);
         Result result = new Result();
-        result.setTemplates(template);
+        result.setPayload(template);
         result.setMessage("탬플릿 생성 성공");
         return result;
     }
@@ -37,7 +42,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Result retrieveTemplateList() {
         List<Template> list = repository.findAllByOrderByIdDesc();
         Result result = new Result();
-        result.setTemplates(list);
+        result.setPayload(list);
         result.setMessage("탬플릿 전체 조회 성공");
         return result;
     }
@@ -46,7 +51,7 @@ public class TemplateServiceImpl implements TemplateService {
         Result result = new Result();
         boolean isPresent = repository.findById(id).isPresent();
         if (!isPresent) {
-            result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            //result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         } else {
             repository.deleteById(id);
         }
