@@ -35,7 +35,7 @@ public class TemplateServiceImpl implements TemplateService {
         repository.save(template);
         Result result = new Result();
         result.setPayload(template);
-        result.setMessage("탬플릿 생성 성공");
+        //result.setMessage("탬플릿 생성 성공");
         return result;
     }
 
@@ -43,7 +43,7 @@ public class TemplateServiceImpl implements TemplateService {
         List<Template> list = repository.findAllByOrderByIdDesc();
         Result result = new Result();
         result.setPayload(list);
-        result.setMessage("탬플릿 전체 조회 성공");
+        //result.setMessage("탬플릿 전체 조회 성공");
         return result;
     }
 
@@ -55,7 +55,7 @@ public class TemplateServiceImpl implements TemplateService {
         } else {
             repository.deleteById(id);
         }
-        result.setMessage("탬플릿 삭제 성공");
+        //result.setMessage("탬플릿 삭제 성공");
         return result;
     }
 }
