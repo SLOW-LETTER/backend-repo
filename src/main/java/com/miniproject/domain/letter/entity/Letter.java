@@ -1,6 +1,7 @@
 package com.miniproject.domain.letter.entity;
 
 import com.miniproject.domain.template.entity.Template;
+import com.miniproject.domain.transportation.entity.Transportation;
 import com.miniproject.global.entity.TimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,9 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.security.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @package : com.miniproject.domain.letter.entity;
@@ -39,10 +42,16 @@ public class Letter extends TimeEntity {
     private Integer id;
 
     @Column
-    private String departure;
+    private String departureCountry;
 
     @Column
-    private String destination;
+    private String departureCity;
+
+    @Column
+    private String arrivalCountry;
+
+    @Column
+    private String arrivalCity;
 
     @Column
     private String title;
@@ -51,27 +60,32 @@ public class Letter extends TimeEntity {
     private String content;
 
     @Column
-    private Timestamp boarding_time;
+    private String boarding_time; // 타입 나중에 Timestamp로 변경?
 
     @Column
-    private Timestamp departure_time;
+    private String departure_time; // 타입 나중에 Timestamp로 변경?
 
     @Column
     private boolean isDeleted = Boolean.FALSE;
 
-    @ElementCollection
-    private List<String> destinationLatLon;
+//    @ElementCollection (위도 경도)
+//    private List<String> destinationLatLon;
 
-    @OneToOne(fetch = FetchType.LAZY) // 일대일 매핑
-    @JoinColumn(name = "id")
+    @OneToOne(fetch = FetchType.LAZY) // 일대일 매핑 (탬플릿)
+    @JoinColumn(name = "template_id")
     private Template templateId;
 
+    @OneToOne(fetch = FetchType.LAZY) // 일대일 매핑 (교통수단)
+    @JoinColumn(name = "transportation_id")
+    private Transportation transportationId;
+
+    @OneToMany(mappedBy = "letter") // 일대다 매핑 (파일)
+    //private List<File> files = new ArrayList<File>();
+    private Set<File> files;
 //    @ManyToOne
 //    private User senderId;
 //
 //    @ManyToOne
 //    private User receiverId;
-//
-//    @OnetoMany
-//    private Transportation transportationId;
+
 }

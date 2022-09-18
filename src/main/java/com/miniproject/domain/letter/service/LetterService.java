@@ -1,7 +1,10 @@
 package com.miniproject.domain.letter.service;
 
+import com.miniproject.domain.letter.dto.FileDto;
 import com.miniproject.domain.letter.entity.Letter;
 import com.miniproject.global.entity.Result;
+
+import java.io.FileNotFoundException;
 
 /**
  * @package : com.miniproject.domain.letter.service
@@ -17,7 +20,7 @@ import com.miniproject.global.entity.Result;
 
 
 public interface LetterService {
-    public Result createLetter(Letter letter);
+    public Result createLetter(Letter letter, FileDto fileDto);
 
     public Result retrieveReceiver(int id);
 
