@@ -17,6 +17,16 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author : 박수현
+ * @version : 1.0.0
+ * @package : com.miniproject.global.jwt.service
+ * @name : JwtTokenProvider
+ * @create-date: 2022-09-19
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {

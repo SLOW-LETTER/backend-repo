@@ -12,6 +12,16 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * @author : 박수현
+ * @version : 1.0.0
+ * @package : com.miniproject.global.config
+ * @name : SecurityConfig
+ * @create-date: 2022-09-19
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -43,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // 요청에 대한 사용권한 체크
                 .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/v1/user/**").hasRole("USER")
+                .antMatchers("/api/v1/users-info/**").hasRole("USER")
                 .antMatchers("/api/v1/letters/**").hasRole("USER")
                 .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
                 .and()

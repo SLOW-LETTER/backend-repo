@@ -13,6 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
+/**
+ * @author : 박수현
+ * @version : 1.0.0
+ * @package : com.miniproject.domain.user.controller
+ * @name : UserController
+ * @create-date: 2022-09-19
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @Slf4j
 @RestController
 @RequestMapping(value = "api/v1/users")
@@ -31,7 +41,6 @@ public class UserController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    // 아이디 중복체크
     @PostMapping("/email/validation")
     public Result emailValidation(@ModelAttribute User user) {
         Result result = new Result();
@@ -41,7 +50,6 @@ public class UserController {
         return result;
     }
 
-    // 회원가입
     @PostMapping("/join")
     public Result join(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -50,10 +58,9 @@ public class UserController {
         return result;
     }
 
-    // 로그인
     @PostMapping("/login")
     public Result login(@ModelAttribute User userInput) {
-        User user = userRepository.findByEmail(userInput.getEmail())
+        User user = userRepository.findByEmailIsNotDeleted(userInput.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
         if (!passwordEncoder.matches(userInput.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
