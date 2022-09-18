@@ -13,6 +13,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * @author : 박수현
+ * @version : 1.0.0
+ * @package : com.miniproject.global.jwt.filter
+ * @name : JwtAuthenticationFilter
+ * @create-date: 2022-09-19
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
 

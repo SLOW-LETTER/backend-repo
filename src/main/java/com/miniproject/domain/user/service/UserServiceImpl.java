@@ -11,9 +11,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author : 박수현
+ * @version : 1.0.0
+ * @package : com.miniproject.domain.user.service
+ * @name : UserServiceImpl
+ * @create-date: 2022-09-19
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -41,62 +50,94 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Result retrieveUserList() {
-        List<User> list = userRepository.findAllByOrderByUserIdDesc();
-        Result result = new Result();
-        result.setPayload(list);
-        return result;
-    }
-
-    @Override
-    public Result retrieveUser(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        Result result = new Result();
-        if(optionalUser.isPresent()){
-            if(optionalUser.get().getIs_deleted() == false) {
-                result.setPayload(optionalUser.get());
-            }
-        } else{
-            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
-        }
-        return result;
-    }
-
-    @Override
     public Result retrieveUserByEmail(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         Result result = new Result();
-        if(optionalUser.isPresent()){
-            if(optionalUser.get().getIs_deleted() == false) {
+        if (optionalUser.isPresent()) {
+            if (optionalUser.get().getIs_deleted() == false) {
                 result.setPayload(optionalUser.get());
             }
-        } else{
+        } else {
             result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         }
         return result;
     }
 
     @Override
-    public Result updateUser(User user, Long userId) {
-        Optional<User> updateUser = userRepository.findById(userId);
+    public Result updateUserInfo(String email, User user) {
+        Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(email);
         Result result = new Result();
-        if(updateUser.isPresent()){
-            user= userRepository.save(updateUser.get());
+        if (updateUser.isPresent()) {
+            if (user.getName() != null) {
+                updateUser.get().setName(user.getName());
+            }
+            if (user.getPhone() != null) {
+                updateUser.get().setPhone(user.getPhone());
+            }
+            if (user.getBio() != null) {
+                updateUser.get().setBio(user.getBio());
+            }
+            if (user.getProfile_image_url() != null) {
+                updateUser.get().setProfile_image_url(user.getProfile_image_url());
+            }
+            user = userRepository.save(updateUser.get());
             result.setPayload(user);
-        } else{
+        } else {
             result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         }
         return result;
     }
 
     @Override
-    public Result deleteUser(Long userId) {
+    public Result updateUserInfoSettings(String email, User user) {
+        Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(email);
         Result result = new Result();
-        boolean isPresent = userRepository.findById(userId).isPresent();
-        if(!isPresent){
+        if (updateUser.isPresent()) {
+            if (user.getIs_checked_my_receive() != null) {
+                updateUser.get().setIs_checked_my_receive(user.getIs_checked_my_receive());
+            }
+            if (user.getIs_checked_my_send() != null) {
+                updateUser.get().setIs_checked_my_send(user.getIs_checked_my_send());
+            }
+            if (user.getIs_checked_other_receive() != null) {
+                updateUser.get().setIs_checked_other_receive(user.getIs_checked_other_receive());
+            }
+            if (user.getIs_checked_other_send() != null) {
+                updateUser.get().setIs_checked_other_send(user.getIs_checked_other_send());
+            }
+            user = userRepository.save(updateUser.get());
+            result.setPayload(user);
+        } else {
             result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
-        } else{
-            userRepository.deleteById(userId);
+        }
+        return result;
+    }
+
+    @Override
+    public Result updateUserInfoPassword(String email, User user) {
+        Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(email);
+        Result result = new Result();
+        if (updateUser.isPresent()) {
+            if (user.getPassword() != null) {
+                updateUser.get().setPassword(user.getPassword());
+            }
+            user = userRepository.save(updateUser.get());
+            result.setPayload(user);
+        } else {
+            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+        }
+        return result;
+    }
+
+    @Override
+    public Result deleteUser(String email, User user) {
+        Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(email);
+        Result result = new Result();
+        if (updateUser.isPresent()) {
+            userRepository.deletedUserByEmail(email, user.getWithdraw_feedback());
+            // result.setPayload(user);
+        } else {
+            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         }
         return result;
     }

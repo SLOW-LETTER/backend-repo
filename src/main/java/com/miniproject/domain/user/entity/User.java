@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import com.miniproject.global.entity.TimeEntity;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,26 +14,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
-* @package : com.miniproject.domain.user.entity
-* @name : User
-* @create-date: 2022-09-13
-* @author : 박수현
-* @version : 1.0.0
-* 
-* @update-date :
-* @update-author : 000
-* @update-description : 
-*/
+ * @author : 박수현
+ * @version : 1.0.0
+ * @package : com.miniproject.domain.user.entity
+ * @name : User
+ * @create-date: 2022-09-13
+ * @update-date :
+ * @update-author : 000
+ * @update-description :
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Setter
-@SQLDelete(sql = "UPDATE users SET is_deleted = true WHERE id = ?")
 @ToString
 public class User extends TimeEntity implements UserDetails {
     @Id
@@ -55,20 +52,21 @@ public class User extends TimeEntity implements UserDetails {
 
     @Column(nullable = false, length = 50)
     @Builder.Default
-    private Boolean is_deleted = false;
+    private Boolean is_deleted = Boolean.FALSE;
 
     @Column
     private String withdraw_feedback;
 
-    @Column
-    private String profile_image_url;
+    @Column(nullable = false)
+    @Builder.Default
+    private String profile_image_url = "https://slowletter.s3.ap-northeast-2.amazonaws.com/users/default_profile.png";
 
     @Column
     private String bio;
 
     @Column(nullable = false)
     @Builder.Default
-    private Boolean is_checked_other_send = true;
+    private Boolean is_checked_other_send = Boolean.TRUE;
 
     @Column(nullable = false)
     @Builder.Default
