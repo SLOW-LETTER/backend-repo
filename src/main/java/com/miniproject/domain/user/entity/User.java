@@ -30,15 +30,16 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 @Entity
-@Table(name="user")
+@Table(name="users")
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Setter
-@SQLDelete(sql = "UPDATE user SET is_deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE users SET is_deleted = true WHERE id = ?")
 @ToString
 public class User extends TimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
     @Column(nullable = false, length = 30, unique = true)
     private String email; // 아이디
@@ -53,8 +54,8 @@ public class User extends TimeEntity implements UserDetails {
     private String phone;
 
     @Column(nullable = false, length = 50)
-    // @ColumnDefault("false")
-    private Boolean is_deleted = Boolean.FALSE;
+    @Builder.Default
+    private Boolean is_deleted = false;
 
     @Column
     private String withdraw_feedback;
@@ -66,25 +67,20 @@ public class User extends TimeEntity implements UserDetails {
     private String bio;
 
     @Column(nullable = false)
-    // @ColumnDefault("true")
-    private Boolean is_checked_other_send = Boolean.TRUE;
+    @Builder.Default
+    private Boolean is_checked_other_send = true;
 
     @Column(nullable = false)
-    // @ColumnDefault("true")
+    @Builder.Default
     private Boolean is_checked_my_receive = Boolean.TRUE;
 
     @Column(nullable = false)
-    // @ColumnDefault("true")
+    @Builder.Default
     private Boolean is_checked_my_send = Boolean.TRUE;
 
     @Column(nullable = false)
-    // @ColumnDefault("true")
+    @Builder.Default
     private Boolean is_checked_other_receive = Boolean.TRUE;
-
-//    @Enumerated(EnumType.STRING)
-//    @Column(nullable = false)
-//    // @ColumnDefault(Role.USER.getValue())
-//    private Role role = Role.USER;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

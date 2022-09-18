@@ -18,6 +18,7 @@ import javax.persistence.*;
  */
 @Entity
 @Data
+@EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="transportation")
@@ -39,5 +40,6 @@ public class Transportation extends TimeEntity {
     private double velocity;
 
     @Column
+    @Builder.Default
     private boolean is_deleted = Boolean.FALSE;
 }
