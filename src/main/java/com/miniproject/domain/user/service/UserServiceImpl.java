@@ -27,6 +27,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public Boolean emailValidation(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        return optionalUser.isPresent();
+    }
+
+    @Override
     public Result createUser(User user) {
         user = userRepository.save(user);
         Result result = new Result();
@@ -45,6 +51,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Result retrieveUser(Long userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
+        Result result = new Result();
+        if(optionalUser.isPresent()){
+            if(optionalUser.get().getIs_deleted() == false) {
+                result.setPayload(optionalUser.get());
+            }
+        } else{
+            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+        }
+        return result;
+    }
+
+    @Override
+    public Result retrieveUserByEmail(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         Result result = new Result();
         if(optionalUser.isPresent()){
             if(optionalUser.get().getIs_deleted() == false) {

@@ -1,11 +1,11 @@
 package com.miniproject.domain.user.dto;
 
-import com.miniproject.domain.user.entity.Role;
-import com.miniproject.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
 * @package : com.miniproject.domain.user.dto
@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserDto {
-    private Long id;
+    private Long user_id;
     private String email;
     private String name;
     private String password;
@@ -36,17 +36,5 @@ public class UserDto {
     private Boolean is_checked_my_receive;
     private Boolean is_checked_my_send;
     private Boolean is_checked_other_receive;
-    private Role role;
-
-    /* DTO -> Entity */
-//    public User toEntity() {
-//        User user = User.builder()
-//                .email(email)
-//                .password(password)
-//                .nickname(nickname)
-//                .email(email)
-//                .role(role.USER)
-//                .build();
-//        return user;
-//    }
+    private List<String> roles;
 }

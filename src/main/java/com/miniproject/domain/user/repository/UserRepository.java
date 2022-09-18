@@ -1,6 +1,5 @@
 package com.miniproject.domain.user.repository;
 
-import com.miniproject.domain.transportation.entity.Transportation;
 import com.miniproject.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +21,7 @@ import java.util.Optional;
 */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query(value = "select * from user where is_deleted =false",nativeQuery = true)
+    @Query(value = "select * from users where is_deleted =false",nativeQuery = true)
     public List<User> findAllByOrderByUserIdDesc();
 
     Optional<User> findByEmail(String email);
