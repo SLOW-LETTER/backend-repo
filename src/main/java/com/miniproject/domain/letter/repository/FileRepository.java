@@ -1,15 +1,15 @@
 package com.miniproject.domain.letter.repository;
 
-import com.miniproject.domain.letter.entity.Letter;
+import com.miniproject.domain.letter.entity.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * @package : com.miniproject.domain.letter.repository;
- * @name : LetterRepository
- * @create-date: 2022.09.15
+ * @package : com.miniproject.domain.template.repository
+ * @name : FileRepository
+ * @create-date: 2022.09.17
  * @author : 김현진
  * @version : 1.0.0
  *
@@ -19,6 +19,6 @@ import java.util.List;
  */
 
 @Repository
-public interface LetterRepository extends JpaRepository<Letter, Integer> {
-    public List<Letter> findAllByOrderByIdDesc();
+public interface FileRepository extends JpaRepository<File, Integer> {
+    public List<File> findAllByOrderByIdDesc();
 }

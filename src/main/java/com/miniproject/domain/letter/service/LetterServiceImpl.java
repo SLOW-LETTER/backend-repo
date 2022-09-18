@@ -1,10 +1,12 @@
 package com.miniproject.domain.letter.service;
 
+import com.miniproject.domain.letter.dto.FileDto;
 import com.miniproject.domain.letter.entity.Letter;
 import com.miniproject.domain.letter.repository.LetterRepository;
 import com.miniproject.global.entity.Result;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -20,14 +22,14 @@ import java.util.Optional;
  * @update-description :
  */
 
-
+@Service
 public class LetterServiceImpl implements LetterService{
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(LetterServiceImpl.class);
 
     @Autowired
     LetterRepository repository;
 
-    public Result createLetter(Letter letter) {
+    public Result createLetter(Letter letter, FileDto fileDto) {
         letter = repository.save(letter);
         Result result = new Result();
         result.setPayload(letter);
@@ -35,6 +37,7 @@ public class LetterServiceImpl implements LetterService{
         return result;
     }
 
+    // 받는사람 조회
     public Result retrieveReceiver(int id) {
         return null;
     }

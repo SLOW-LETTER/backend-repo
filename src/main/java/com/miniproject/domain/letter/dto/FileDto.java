@@ -1,13 +1,13 @@
-package com.miniproject.domain.template.dto;
+package com.miniproject.domain.letter.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @package : com.miniproject.domain.template.dto
- * @name : TemplateDto
- * @create-date: 2022.09.06
+ * @package : com.miniproject.domain.letter.dto;
+ * @name : FileDto
+ * @create-date: 2022.09.17
  * @author : 김현진
  * @version : 1.0.0
  *
@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-public class TemplateDto {
+public class FileDto {
     private String fileName;
     private String url;
     private MultipartFile file;

@@ -2,6 +2,7 @@ package com.miniproject.domain.template.service;
 
 import com.miniproject.domain.template.dto.TemplateDto;
 import com.miniproject.global.entity.Result;
+import org.springframework.stereotype.Service;
 
 /**
  * @package : com.miniproject.domain.template.service
@@ -14,8 +15,9 @@ import com.miniproject.global.entity.Result;
  * @update-author : 000
  * @update-description :
  */
-public interface TemplateService {
 
+@Service
+public interface TemplateService {
     public Result createTemplate(TemplateDto templateDto);
 
     // 탬플릿 전체조회
