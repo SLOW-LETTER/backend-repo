@@ -1,8 +1,8 @@
 package com.miniproject.domain.user.dto;
 
 import com.miniproject.domain.user.entity.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,41 +22,44 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
+@Schema(description = "사용자 DTO")
 public class UserDto {
     private String oldPassword;
     private String newPassword;
-    private Long user_id;
+    private Long id;
+
     private String email;
+
     private String name;
+
     private String password;
     private String phone;
-    private Boolean is_deleted;
-    private String withdraw_feedback;
-    private MultipartFile file;
-    private String profile_image_url;
+    private Boolean isDeleted = Boolean.FALSE;
+    private String withdrawFeedback;
+    private String profileImageUrl= "https://slowletter.s3.ap-northeast-2.amazonaws.com/users/default_profile.png";
     private String bio;
-    private Boolean is_checked_other_send;
-    private Boolean is_checked_my_receive;
-    private Boolean is_checked_my_send;
-    private Boolean is_checked_other_receive;
+    private Boolean isCheckedOtherSend = Boolean.TRUE;
+    private Boolean isCheckedMyReceive = Boolean.TRUE;
+    private Boolean isCheckedMySend = Boolean.TRUE;
+    private Boolean isCheckedOtherReceive = Boolean.TRUE;
     private List<String> roles;
 
     /* DTO -> Entity */
     public User toEntity() {
         User user = User.builder()
-                .user_id(user_id)
+                .id(id)
                 .email(email)
                 .password(password)
                 .name(name)
                 .phone(phone)
-                .is_deleted(is_deleted)
-                .withdraw_feedback(withdraw_feedback)
-                .profile_image_url(profile_image_url)
+                .isDeleted(isDeleted)
+                .withdrawFeedback(withdrawFeedback)
+                .profileImageUrl(profileImageUrl)
                 .bio(bio)
-                .is_checked_other_send(is_checked_other_send)
-                .is_checked_my_receive(is_checked_my_receive)
-                .is_checked_my_send(is_checked_my_send)
-                .is_checked_other_receive(is_checked_other_receive)
+                .isCheckedOtherReceive(isCheckedOtherReceive)
+                .isCheckedMyReceive(isCheckedMyReceive)
+                .isCheckedMySend(isCheckedMySend)
+                .isCheckedOtherSend(isCheckedOtherSend)
                 .roles(roles)
                 .build();
         return user;
