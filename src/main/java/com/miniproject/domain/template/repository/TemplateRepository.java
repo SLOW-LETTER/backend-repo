@@ -11,17 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
+ * @author : 김현진
+ * @version : 1.0.0
  * @package : com.miniproject.domain.template.repository
  * @name : TemplateRepository
  * @create-date: 2022.09.15
- * @author : 김현진
- * @version : 1.0.0
- *
  * @update-date :
  * @update-author : 000
  * @update-description :
  */
-
 @Repository
 public interface TemplateRepository extends JpaRepository<Template, Integer> {
     public List<Template> findAllByOrderByIdDesc();
