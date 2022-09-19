@@ -34,6 +34,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE users SET is_deleted = true, withdraw_feedback = CAST(:withdrawFeedback as varchar) WHERE email = CAST(:email as varchar)", nativeQuery = true)
+    @Query(value = "update users set is_deleted = true, withdraw_feedback = CAST(:withdrawFeedback as varchar) where email = CAST(:email as varchar)", nativeQuery = true)
     void deletedUserByEmail(@Param("email") String email, @Param("withdrawFeedback") String withdrawFeedback);
 }

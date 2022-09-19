@@ -1,8 +1,10 @@
 package com.miniproject.domain.user.service;
 
+import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.global.entity.Result;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author : 박수현
@@ -19,15 +21,15 @@ public interface UserService {
 
     public Boolean emailValidation(String email);
 
-    public Result createUser(User user);
+    public Result createUser(UserDto userDto, PasswordEncoder passwordEncoder);
 
     public Result retrieveUserByEmail(String email);
 
     Result updateUserInfo(String email, User user);
 
-    Result updateUserInfoSettings(String email, User user);
+    Result updateUserInfoSettings(String email, UserDto userDto);
 
-    Result updateUserInfoPassword(String email, User user);
+    Result updateUserInfoPassword(String email, UserDto userDto, PasswordEncoder passwordEncoder);
 
-    public Result deleteUser(String email, User user);
+    public Result deleteUser(String email, UserDto userDto, PasswordEncoder passwordEncoder);
 }

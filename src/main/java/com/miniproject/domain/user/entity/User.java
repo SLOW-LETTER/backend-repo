@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 public class User extends TimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long id;
 
     @Column(nullable = false, length = 30, unique = true)
     private String email; // 아이디
@@ -52,33 +52,33 @@ public class User extends TimeEntity implements UserDetails {
 
     @Column(nullable = false, length = 50)
     @Builder.Default
-    private Boolean is_deleted = Boolean.FALSE;
+    private Boolean isDeleted = Boolean.FALSE;
 
     @Column
-    private String withdraw_feedback;
+    private String withdrawFeedback;
 
     @Column(nullable = false)
     @Builder.Default
-    private String profile_image_url = "https://slowletter.s3.ap-northeast-2.amazonaws.com/users/default_profile.png";
+    private String profileImageUrl = "https://slowletter.s3.ap-northeast-2.amazonaws.com/users/default_profile.png";
 
     @Column
     private String bio;
 
     @Column(nullable = false)
     @Builder.Default
-    private Boolean is_checked_other_send = Boolean.TRUE;
+    private Boolean isCheckedOtherSend = Boolean.TRUE;
 
     @Column(nullable = false)
     @Builder.Default
-    private Boolean is_checked_my_receive = Boolean.TRUE;
+    private Boolean isCheckedMyReceive = Boolean.TRUE;
 
     @Column(nullable = false)
     @Builder.Default
-    private Boolean is_checked_my_send = Boolean.TRUE;
+    private Boolean isCheckedMySend = Boolean.TRUE;
 
     @Column(nullable = false)
     @Builder.Default
-    private Boolean is_checked_other_receive = Boolean.TRUE;
+    private Boolean isCheckedOtherReceive = Boolean.TRUE;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
