@@ -1,6 +1,6 @@
 package com.miniproject.domain.transportation.controller;
 
-import com.miniproject.domain.transportation.entity.Transportation;
+import com.miniproject.domain.transportation.dto.TransportationDto;
 import com.miniproject.domain.transportation.repository.TransportationRepository;
 import com.miniproject.domain.transportation.service.TransportationService;
 import com.miniproject.global.entity.Result;
@@ -31,6 +31,8 @@ public class TransportationController {
     @Autowired
     TransportationService transportationService;
 
+
+
     @GetMapping
     public Result retrieveTransportation() {
         Result result = transportationService.retrieveTransportationList();
@@ -44,14 +46,14 @@ public class TransportationController {
     }
 
     @PostMapping
-    public Result createTransportation(@ModelAttribute Transportation transportation) {
-        Result result = transportationService.createTransportation(transportation);
+    public Result createTransportation(@ModelAttribute TransportationDto transportationdto) {
+        Result result = transportationService.createTransportation(transportationdto);
         return result;
     }
 
     @PatchMapping("/{transportation_id}")
-    public Result updateTransportation(@ModelAttribute Transportation transportation, @PathVariable Integer transportation_id) {
-        Result result = transportationService.updateTransportation(transportation, transportation_id);
+    public Result updateTransportation(@ModelAttribute TransportationDto transportationdto, @PathVariable Integer transportation_id) {
+        Result result = transportationService.updateTransportation(transportationdto, transportation_id);
         return result;
     }
 

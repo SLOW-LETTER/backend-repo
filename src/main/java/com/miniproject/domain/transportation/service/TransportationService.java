@@ -1,6 +1,6 @@
 package com.miniproject.domain.transportation.service;
 
-import com.miniproject.domain.transportation.entity.Transportation;
+import com.miniproject.domain.transportation.dto.TransportationDto;
 import com.miniproject.global.entity.Result;
 
 /**
@@ -16,9 +16,9 @@ import com.miniproject.global.entity.Result;
  */
 public interface TransportationService {
 
-    public Result createTransportation(Transportation transportation);
+    public Result createTransportation(TransportationDto transportationdto);
     public Result retrieveTransportationList();
     public Result retrieveTransportation(int transportationId);
-    Result updateTransportation(Transportation transportation, int transportationId);
+    Result updateTransportation(TransportationDto transportationdto, int transportationId);
     public Result deleteTransportation(int transportationId);
 }

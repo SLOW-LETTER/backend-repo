@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Result {
     private Object payload;
-    private ErrorResponse message;
+    private ErrorCod message;
 }

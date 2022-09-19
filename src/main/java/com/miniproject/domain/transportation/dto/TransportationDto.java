@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Timestamp;
 
 /**
  * @package : com.miniproject.domain.transportation.dto
@@ -24,17 +23,15 @@ import java.sql.Timestamp;
 @Builder
 public class TransportationDto {
 
+    private String name;
     private  double velocity;
-
-    private Timestamp createdAt;
-
-    private Timestamp updatedAt;
 
     public Transportation toEntity() {
         Transportation transportation = Transportation.builder()
+                .name(name)
                 .velocity(velocity)
-
                 .build();
+
         return transportation;
     }
 }

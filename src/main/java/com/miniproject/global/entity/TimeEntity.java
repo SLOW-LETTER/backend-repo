@@ -6,7 +6,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
 
 /**
  * @author : 박수현
@@ -24,20 +26,20 @@ import java.time.LocalDate;
 public abstract class TimeEntity {
     @Column
     @CreatedDate
-    private LocalDate created_at;
+    private LocalDateTime created_at;
 
     @Column
     @LastModifiedDate
-    private LocalDate updated_at;
+    private LocalDateTime updated_at;
 
     @PrePersist
     public void onPrePersist() {
-        this.created_at = LocalDate.now();
-        this.updated_at = this.updated_at;
+        this.created_at = LocalDateTime.now();
+        this.updated_at = LocalDateTime.now();
     }
 
     @PreUpdate
     public void onPreUpdate() {
-        this.updated_at = LocalDate.now();
+        this.updated_at = LocalDateTime.now();
     }
 }

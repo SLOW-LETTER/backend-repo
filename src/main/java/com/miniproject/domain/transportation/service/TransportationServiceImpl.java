@@ -1,8 +1,9 @@
 package com.miniproject.domain.transportation.service;
 
+import com.miniproject.domain.transportation.dto.TransportationDto;
 import com.miniproject.domain.transportation.entity.Transportation;
 import com.miniproject.domain.transportation.repository.TransportationRepository;
-import com.miniproject.global.entity.ErrorResponse;
+import com.miniproject.global.entity.ErrorCod;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.enumpkg.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +30,12 @@ public class TransportationServiceImpl implements TransportationService {
 
     @Autowired
     TransportationRepository transportationRepository;
+
     @Override //운송수단 생성 메소드
-    public Result createTransportation(Transportation transportation) {
-        transportation = transportationRepository.save(transportation);
+    public Result createTransportation(TransportationDto transportationdto) {
+        Transportation transportation = transportationdto.toEntity();
         Result result = new Result();
-        result.setPayload(transportation);
+        result.setPayload( transportationRepository.save(transportation));
         return result;
     }
 
@@ -52,19 +54,20 @@ public class TransportationServiceImpl implements TransportationService {
         Optional<Transportation> optionTransportation = transportationRepository.findById(transportationId);
         Result result = new Result();
         if(optionTransportation.isPresent()){
-            if(optionTransportation.get().is_deleted() == false) {
+            if(optionTransportation.get().isDeleted() == false) {
                 result.setPayload(optionTransportation.get());
             }
-        } else{ 
-            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
+        } else{
+            result.setMessage(ErrorCod.of(ErrorCode.PA02));
         }
         return result;
     }
 
 
     @Override
-    public Result updateTransportation(Transportation transportation, int transportationId) {
+    public Result updateTransportation(TransportationDto transportationdto, int transportationId) {
         Optional<Transportation> updateTransportation = transportationRepository.findById(transportationId);
+        Transportation transportation = transportationdto.toEntity();
         Result result = new Result();
         if(updateTransportation.isPresent()){
             if(transportation.getName() != null) {
@@ -76,7 +79,7 @@ public class TransportationServiceImpl implements TransportationService {
             transportation= transportationRepository.save(updateTransportation.get());
             result.setPayload(transportation);
         } else{
-            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
+            result.setMessage(ErrorCod.of(ErrorCode.PA02));
         }
         return result;
     }
@@ -87,9 +90,9 @@ public class TransportationServiceImpl implements TransportationService {
         Result result = new Result();
         boolean isPresent = transportationRepository.findById(transportationId).isPresent();
         if(!isPresent){
-            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
+            result.setMessage(ErrorCod.of(ErrorCode.PA02));
         } else{
-            transportationRepository.deleteById(transportationId);
+            transportationRepository.deletedTransportationByIdl(transportationId);
         }
         return result;
     }
