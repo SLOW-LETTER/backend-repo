@@ -24,7 +24,7 @@ public interface LetterService {
 
     public Result retrieveReceiver(int id);
 
-    public Result retrieveSender(int id);
+    public Result retrieveSender();
 
     public Result retrieveLetter(int id);
 

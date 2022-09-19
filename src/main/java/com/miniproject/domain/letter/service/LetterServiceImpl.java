@@ -1,13 +1,16 @@
 package com.miniproject.domain.letter.service;
 
 import com.miniproject.domain.letter.dto.FileDto;
+import com.miniproject.domain.letter.entity.File;
 import com.miniproject.domain.letter.entity.Letter;
+import com.miniproject.domain.letter.repository.FileRepository;
 import com.miniproject.domain.letter.repository.LetterRepository;
 import com.miniproject.global.entity.Result;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,10 +30,15 @@ public class LetterServiceImpl implements LetterService{
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(LetterServiceImpl.class);
 
     @Autowired
-    LetterRepository repository;
+    LetterRepository letterRepository;
+
+    @Autowired
+    FileRepository fileRepository;
 
     public Result createLetter(Letter letter, FileDto fileDto) {
-        letter = repository.save(letter);
+        File file = new File(fileDto.getFileName(), fileDto.getUrl());
+        fileRepository.save(file);
+        letter = letterRepository.save(letter);
         Result result = new Result();
         result.setPayload(letter);
         //result.setMessage("편지 생성 완료");
@@ -42,29 +50,36 @@ public class LetterServiceImpl implements LetterService{
         return null;
     }
 
-    public Result retrieveSender(int id) {
-        Optional<Letter> optionLetter = repository.findById(id);
+    // 보낸사람 조회
+    public Result retrieveSender() {
+        List<Letter> senderLetter = letterRepository.findAllByOrderByIdDesc();
         Result result = new Result();
-        if(optionLetter.isPresent()) {
-            result.setPayload(optionLetter.get());
-            //result.setMessage("편지 조회 성공");
-        } else {
-            //result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
-        }
+//        if(optionLetter.isPresent()) {
+//            result.setPayload(optionLetter.get());
+//            //result.setMessage("편지 조회 성공");
+//        } else {
+//            //result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+//        }
+        result.setPayload(senderLetter);
         return result;
     }
 
+    @Override
     public Result retrieveLetter(int id) {
         return null;
     }
 
+//    public Result retrieveLetter(int id) {
+//        List<Letter> letter
+//    }
+
     public Result deleteLetter(int id) {
         Result result = new Result();
-        boolean isPresent = repository.findById(id).isPresent();
+        boolean isPresent = letterRepository.findById(id).isPresent();
         if(!isPresent) {
             //result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
         } else {
-            repository.deleteById(id);
+            letterRepository.deleteById(id);
         }
         //result.setMessage("편지 삭제 성공");
         return result;

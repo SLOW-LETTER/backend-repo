@@ -2,6 +2,7 @@ package com.miniproject.domain.letter.entity;
 
 import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.transportation.entity.Transportation;
+import com.miniproject.domain.user.entity.User;
 import com.miniproject.global.entity.TimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -82,8 +83,10 @@ public class Letter extends TimeEntity {
     @OneToMany(mappedBy = "letter") // 일대다 매핑 (파일)
     //private List<File> files = new ArrayList<File>();
     private Set<File> files;
-//    @ManyToOne
-//    private User senderId;
+
+    @ManyToOne //n:1 관계 (user : Letter)
+    @JoinColumn(name ="sender_id")
+    private User senderId;
 //
 //    @ManyToOne
 //    private User receiverId;
