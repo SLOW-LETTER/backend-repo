@@ -14,12 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * @author : 원우연
+ * @version : 1.0.0
  * @package : com.shanep.service
  * @name : TransportationServiceImpl
  * @create-date: 2022.09.06
- * @author : 원우연
- * @version : 1.0.0
- *
  * @update-date : 2022.07.17
  * @update-author : 원우연
  * @update-description : 에러 코드 반환 형식 변경
@@ -35,10 +34,9 @@ public class TransportationServiceImpl implements TransportationService {
     public Result createTransportation(TransportationDto transportationdto) {
         Transportation transportation = transportationdto.toEntity();
         Result result = new Result();
-        result.setPayload( transportationRepository.save(transportation));
+        result.setPayload(transportationRepository.save(transportation));
         return result;
     }
-
 
     @Override
     public Result retrieveTransportationList() {
@@ -48,50 +46,47 @@ public class TransportationServiceImpl implements TransportationService {
         return result;
     }
 
-
     @Override
     public Result retrieveTransportation(int transportationId) {
         Optional<Transportation> optionTransportation = transportationRepository.findById(transportationId);
         Result result = new Result();
-        if(optionTransportation.isPresent()){
-            if(optionTransportation.get().isDeleted() == false) {
+        if (optionTransportation.isPresent()) {
+            if (optionTransportation.get().isDeleted() == false) {
                 result.setPayload(optionTransportation.get());
             }
-        } else{
+        } else {
             result.setMessage(ErrorCod.of(ErrorCode.PA02));
         }
         return result;
     }
-
 
     @Override
     public Result updateTransportation(TransportationDto transportationdto, int transportationId) {
         Optional<Transportation> updateTransportation = transportationRepository.findById(transportationId);
         Transportation transportation = transportationdto.toEntity();
         Result result = new Result();
-        if(updateTransportation.isPresent()){
-            if(transportation.getName() != null) {
+        if (updateTransportation.isPresent()) {
+            if (transportation.getName() != null) {
                 updateTransportation.get().setName(transportation.getName());
             }
-            if(transportation.getVelocity() != 0){
+            if (transportation.getVelocity() != 0) {
                 updateTransportation.get().setVelocity(transportation.getVelocity());
             }
-            transportation= transportationRepository.save(updateTransportation.get());
+            transportation = transportationRepository.save(updateTransportation.get());
             result.setPayload(transportation);
-        } else{
+        } else {
             result.setMessage(ErrorCod.of(ErrorCode.PA02));
         }
         return result;
     }
 
-
     @Override
     public Result deleteTransportation(int transportationId) {
         Result result = new Result();
         boolean isPresent = transportationRepository.findById(transportationId).isPresent();
-        if(!isPresent){
+        if (!isPresent) {
             result.setMessage(ErrorCod.of(ErrorCode.PA02));
-        } else{
+        } else {
             transportationRepository.deletedTransportationByIdl(transportationId);
         }
         return result;
