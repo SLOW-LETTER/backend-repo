@@ -6,12 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
+ * @author : 김현진
+ * @version : 1.0.0
  * @package : com.miniproject.domain.template.entity
  * @name : Template
  * @create-date: 2022.09.06
- * @author : 김현진
- * @version : 1.0.0
- *
  * @update-date :
  * @update-author : 000
  * @update-description :
@@ -35,9 +34,4 @@ public class Template extends TimeEntity {
     @Column(nullable = false)
     @Builder.Default
     private boolean isDeleted = Boolean.FALSE;
-
-//    public Template(String fileName, String fileUrl) {
-//        this.fileName = fileName;
-//        this.fileUrl = fileUrl;
-//    }
 }
