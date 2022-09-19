@@ -6,7 +6,6 @@ import com.miniproject.domain.template.service.TemplateService;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.file.service.S3Service;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +22,11 @@ import java.io.IOException;
  * @update-author : 000
  * @update-description :
  */
+
 @RestController
 @RequestMapping(value="/api/v1/templates")
 @RequiredArgsConstructor
-
 public class TemplateController {
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(TemplateController.class);
     private final S3Service s3Service;
 
     @Autowired
@@ -44,7 +42,7 @@ public class TemplateController {
     }
 
     @PostMapping
-    public Result createTemplate(TemplateDto templateDto) throws IOException{
+    public Result createTemplate(@ModelAttribute TemplateDto templateDto) throws IOException{
         String url = s3Service.uploadFile(templateDto.getFile(), "templates");
         templateDto.setUrl(url);
         Result result = templateService.createTemplate(templateDto);
@@ -56,5 +54,4 @@ public class TemplateController {
         Result result = templateService.deleteTemplate(id);
         return result;
     }
-
 }

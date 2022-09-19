@@ -1,7 +1,7 @@
 package com.miniproject.domain.template.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.miniproject.domain.template.entity.Template;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,8 +18,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 public class TemplateDto {
-    private String fileName;
     private String url;
     private MultipartFile file;
+
+    public Template toEntity() {
+       Template template = Template.builder()
+               .fileUrl(url)
+               .build();
+       return template;
+    }
 }

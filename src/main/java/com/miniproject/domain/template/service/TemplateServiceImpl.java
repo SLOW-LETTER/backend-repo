@@ -4,6 +4,7 @@ import com.miniproject.domain.template.dto.TemplateDto;
 import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.template.repository.TemplateRepository;
 import com.miniproject.global.entity.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,15 @@ import java.util.List;
  * @update-author : 000
  * @update-description :
  */
-@Service
-public class TemplateServiceImpl implements TemplateService {
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(TemplateServiceImpl.class);
 
+@Service
+@Slf4j
+public class TemplateServiceImpl implements TemplateService {
     @Autowired
     TemplateRepository repository;
 
     public Result createTemplate(TemplateDto templateDto) {
-        Template template = new Template(templateDto.getFileName(), templateDto.getUrl());
+        Template template = templateDto.toEntity();
         repository.save(template);
         Result result = new Result();
         result.setPayload(template);
