@@ -3,7 +3,6 @@ package com.miniproject.domain.template.service;
 import com.miniproject.domain.template.dto.TemplateDto;
 import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.template.repository.TemplateRepository;
-import com.miniproject.global.entity.ErrorResponse;
 import com.miniproject.global.entity.Result;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;

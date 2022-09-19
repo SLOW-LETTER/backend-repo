@@ -4,6 +4,7 @@ import com.miniproject.global.enumpkg.ErrorCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 /**
  * @package : com.shanep.exception
@@ -20,20 +21,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ErrorResponse {
+public class ErrorCod {
 
 	private String code;
 	private String message;
-	private int status;
+	private HttpStatus status;
 	
-	public ErrorResponse(ErrorCode code) {
+	public ErrorCod(ErrorCode code) {
 		this.message = code.getMessage();
 		this.status = code.getStatus();
 		this.code = code.getCode();
 	}
 
-	public static ErrorResponse of(ErrorCode code) {
-		return new ErrorResponse(code);
+	public static ErrorCod of(ErrorCode code) {
+		return new ErrorCod(code);
 	}
 	
 }

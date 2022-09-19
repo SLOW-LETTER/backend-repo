@@ -2,7 +2,7 @@ package com.miniproject.domain.transportation.entity;
 
 import com.miniproject.global.entity.TimeEntity;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
+
 import javax.persistence.*;
 
 /**
@@ -24,14 +24,13 @@ import javax.persistence.*;
 @Table(name="transportation")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE transportation SET is_deleted = true WHERE transportation_id = ?")
 @ToString
 @Builder
 public class Transportation extends TimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int transportationId;
+    private int id;
 
     @Column(nullable = false)
     private String name;
@@ -41,5 +40,5 @@ public class Transportation extends TimeEntity {
 
     @Column
     @Builder.Default
-    private boolean is_deleted = Boolean.FALSE;
+    private boolean isDeleted = Boolean.FALSE;
 }
