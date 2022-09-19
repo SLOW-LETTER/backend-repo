@@ -5,7 +5,6 @@ import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.template.repository.TemplateRepository;
 import com.miniproject.global.entity.ErrorResponse;
 import com.miniproject.global.entity.Result;
-import com.miniproject.global.enumpkg.ServiceResult;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
