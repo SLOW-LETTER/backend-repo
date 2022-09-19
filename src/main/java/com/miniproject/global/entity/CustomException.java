@@ -18,7 +18,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class CustomException {
+public class CustomException extends RuntimeException {
 
     private ErrorCode errorCode;
 

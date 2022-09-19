@@ -1,8 +1,6 @@
 package com.miniproject.global.entity;
 
-import lombok.Builder;
 import lombok.Getter;
-
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,20 +24,20 @@ import java.time.LocalDateTime;
 public abstract class TimeEntity {
     @Column
     @CreatedDate
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column
     @LastModifiedDate
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @PrePersist
     public void onPrePersist() {
-        this.created_at = LocalDateTime.now();
-        this.updated_at = this.updated_at;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = this.updatedAt;
     }
 
     @PreUpdate
     public void onPreUpdate() {
-        this.updated_at = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }
