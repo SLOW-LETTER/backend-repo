@@ -11,12 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
+ * @author : 원우연
+ * @version : 1.0.0
  * @package : com.miniproject.domain.transportation.repository
  * @name : TransportationRepository
  * @create-date: 2022.09.06
- * @author : 원우연
- * @version : 1.0.0
- *
  * @update-date :
  * @update-author : 000
  * @update-description :
@@ -24,12 +23,12 @@ import java.util.List;
 @Repository
 public interface TransportationRepository extends JpaRepository<Transportation, Integer> {
 
-    @Query(value = "select * from transportation where is_deleted =false",nativeQuery = true)
+    @Query(value = "select * from transportation where is_deleted =false", nativeQuery = true)
     public List<Transportation> findAllByOrderByTransportationIdDesc();
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE transportation SET is_deleted = true WHERE transportation_id = CAST(:id as integer)", nativeQuery = true)
+    @Query(value = "UPDATE transportation SET is_deleted = true WHERE id = CAST(:id as integer)", nativeQuery = true)
     void deletedTransportationByIdl(@Param("id") int id);
 
 }

@@ -6,22 +6,21 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
+ * @author : 원우연
+ * @version : 1.0.0
  * @package : com.miniproject.domain.transportation.entity
  * @name : Transportation
  * @create-date: 2022.09.06
- * @author : 원우연
- * @version : 1.0.0
- *
  * @update-date :
  * @update-author : 000
  * @update-description :
  */
 @Entity
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="transportation")
+@Table(name = "transportation")
 @Getter
 @Setter
 @ToString
@@ -32,13 +31,13 @@ public class Transportation extends TimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30, unique = true)
     private String name;
 
     @Column(nullable = false)
     private double velocity;
 
-    @Column
+    @Column(nullable = false)
     @Builder.Default
     private boolean isDeleted = Boolean.FALSE;
 }
