@@ -1,5 +1,6 @@
 package com.miniproject.domain.user.service;
 
+import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.domain.user.repository.UserRepository;
 import com.miniproject.global.entity.ErrorCod;
@@ -9,8 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -42,7 +45,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Result createUser(User user) {
+    public Result createUser(UserDto userDto, PasswordEncoder passwordEncoder) {
+        User user = userDto.toEntity();
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRoles(Collections.singletonList("ROLE_USER"));
         user = userRepository.save(user);
         Result result = new Result();
         result.setPayload(user);
@@ -54,7 +60,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         Result result = new Result();
         if (optionalUser.isPresent()) {
-            if (optionalUser.get().getIs_deleted() == false) {
+            if (optionalUser.get().getIsDeleted() == false) {
                 result.setPayload(optionalUser.get());
             }
         } else {
@@ -77,8 +83,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if (user.getBio() != null) {
                 updateUser.get().setBio(user.getBio());
             }
-            if (user.getProfile_image_url() != null) {
-                updateUser.get().setProfile_image_url(user.getProfile_image_url());
+            if (user.getProfileImageUrl() != null) {
+                updateUser.get().setProfileImageUrl(user.getProfileImageUrl());
             }
             user = userRepository.save(updateUser.get());
             result.setPayload(user);
@@ -89,21 +95,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Result updateUserInfoSettings(String email, User user) {
+    public Result updateUserInfoSettings(String email, UserDto userDto) {
+        User user = userDto.toEntity();
         Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(email);
         Result result = new Result();
         if (updateUser.isPresent()) {
-            if (user.getIs_checked_my_receive() != null) {
-                updateUser.get().setIs_checked_my_receive(user.getIs_checked_my_receive());
+            if (user.getIsCheckedMyReceive() != null) {
+                updateUser.get().setIsCheckedMyReceive(user.getIsCheckedMyReceive());
             }
-            if (user.getIs_checked_my_send() != null) {
-                updateUser.get().setIs_checked_my_send(user.getIs_checked_my_send());
+            if (user.getIsCheckedMySend() != null) {
+                updateUser.get().setIsCheckedMySend(user.getIsCheckedMySend());
             }
-            if (user.getIs_checked_other_receive() != null) {
-                updateUser.get().setIs_checked_other_receive(user.getIs_checked_other_receive());
+            if (user.getIsCheckedOtherReceive() != null) {
+                updateUser.get().setIsCheckedOtherReceive(user.getIsCheckedOtherReceive());
             }
-            if (user.getIs_checked_other_send() != null) {
-                updateUser.get().setIs_checked_other_send(user.getIs_checked_other_send());
+            if (user.getIsCheckedOtherSend() != null) {
+                updateUser.get().setIsCheckedOtherSend(user.getIsCheckedOtherSend());
             }
             user = userRepository.save(updateUser.get());
             result.setPayload(user);
@@ -114,7 +121,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Result updateUserInfoPassword(String email, User user) {
+    public Result updateUserInfoPassword(String email, UserDto userDto, PasswordEncoder passwordEncoder) {
+        User user = userRepository.findByEmailIsNotDeleted(email)
+                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+        if (!passwordEncoder.matches(userDto.getOldPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        }
+        user.setPassword(passwordEncoder.encode(userDto.getNewPassword()));
+
         Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(email);
         Result result = new Result();
         if (updateUser.isPresent()) {
@@ -130,11 +144,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Result deleteUser(String email, User user) {
+    public Result deleteUser(String email, UserDto userDto, PasswordEncoder passwordEncoder) {
+        User user = userRepository.findByEmailIsNotDeleted(email)
+                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+        if (!passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        }
+        user.setWithdrawFeedback(userDto.getWithdrawFeedback());
+
         Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(email);
         Result result = new Result();
         if (updateUser.isPresent()) {
-            userRepository.deletedUserByEmail(email, user.getWithdraw_feedback());
+            userRepository.deletedUserByEmail(email, user.getWithdrawFeedback());
             // result.setPayload(user);
         } else {
             result.setMessage(ErrorCod.of(ErrorCode.PA02));
