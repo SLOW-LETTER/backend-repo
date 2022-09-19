@@ -4,7 +4,7 @@ import com.miniproject.domain.user.entity.User;
 import com.miniproject.domain.user.repository.UserRepository;
 import com.miniproject.global.entity.ErrorResponse;
 import com.miniproject.global.entity.Result;
-import com.miniproject.global.enumpkg.ServiceResult;
+import com.miniproject.global.enumpkg.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 result.setPayload(optionalUser.get());
             }
         } else {
-            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
         }
         return result;
     }
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user = userRepository.save(updateUser.get());
             result.setPayload(user);
         } else {
-            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
         }
         return result;
     }
@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user = userRepository.save(updateUser.get());
             result.setPayload(user);
         } else {
-            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
         }
         return result;
     }
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user = userRepository.save(updateUser.get());
             result.setPayload(user);
         } else {
-            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
         }
         return result;
     }
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userRepository.deletedUserByEmail(email, user.getWithdraw_feedback());
             // result.setPayload(user);
         } else {
-            result.setMessage(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(ErrorResponse.of(ErrorCode.PA02));
         }
         return result;
     }
