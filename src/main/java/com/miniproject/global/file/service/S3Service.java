@@ -30,7 +30,7 @@ public class S3Service {
     private String bucket;
     private final AmazonS3 amazonS3;
 
-    public String uploadFile(MultipartFile multipartFile, String dir) throws IOException {
+    public String uploadFile(MultipartFile multipartFile, Object dir) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
 
         //파일 형식 구하기

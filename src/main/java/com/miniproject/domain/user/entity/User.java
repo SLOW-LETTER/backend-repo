@@ -115,4 +115,7 @@ public class User extends TimeEntity implements UserDetails {
         return true;
     }
 
+//    @OneToMany(mappedBy = "sender")
+//    private Set<>
+
 }

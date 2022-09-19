@@ -4,7 +4,6 @@ import com.miniproject.domain.letter.dto.FileDto;
 import com.miniproject.domain.letter.entity.Letter;
 import com.miniproject.domain.letter.repository.FileRepository;
 import com.miniproject.domain.letter.repository.LetterRepository;
-import com.miniproject.domain.letter.service.FileService;
 import com.miniproject.domain.letter.service.LetterService;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.file.service.S3Service;
@@ -44,16 +43,25 @@ public class LetterController {
     @Autowired
     LetterService letterService;
 
-    @Autowired
-    FileService fileService;
+//    @Autowired
+//    FileService fileService;
 
     @PostMapping
     public Result createLetter(Letter letter, FileDto fileDto) throws IOException{
-        String url = s3Service.uploadFile(fileDto.getFile(), letter.getTitle()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
+        //String id = Integer.toString(letter.getId()); // letter id 별로 버킷에 저장위한 형변환
+        String url = s3Service.uploadFile(fileDto.getFile(), letter.getId()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
         fileDto.setUrl(url);
+        //Result resultTest = fileService.createFile(fileDto);
         Result result = letterService.createLetter(letter, fileDto);
         return result;
     }
+
+    @GetMapping("/sender")
+    public Result retrieveSender(){
+        Result result = letterService.retrieveSender();
+        return result;
+    }
+
 
     @DeleteMapping("/{id}")
     public Result deleteLetter(@PathVariable int id){
