@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class FileDto {
-    private String fileName;
     private String url;
     private MultipartFile file;
 }

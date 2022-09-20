@@ -5,13 +5,14 @@ import com.miniproject.domain.letter.entity.File;
 import com.miniproject.domain.letter.entity.Letter;
 import com.miniproject.domain.letter.repository.FileRepository;
 import com.miniproject.domain.letter.repository.LetterRepository;
+import com.miniproject.domain.user.dto.UserDto;
+import com.miniproject.domain.user.entity.User;
 import com.miniproject.global.entity.Result;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @package : com.miniproject.domain.letter.service;
@@ -35,10 +36,12 @@ public class LetterServiceImpl implements LetterService{
     @Autowired
     FileRepository fileRepository;
 
-    public Result createLetter(Letter letter, FileDto fileDto) {
-        File file = new File(fileDto.getFileName(), fileDto.getUrl());
-        fileRepository.save(file);
+    public Result createLetter(Letter letter, FileDto fileDto, UserDto userDto) {
         letter = letterRepository.save(letter);
+
+        File file = new File(fileDto.getUrl());
+        file.setLetter(letter);
+        fileRepository.save(file);
         Result result = new Result();
         result.setPayload(letter);
         //result.setMessage("편지 생성 완료");

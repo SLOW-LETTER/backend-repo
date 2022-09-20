@@ -2,9 +2,9 @@ package com.miniproject.domain.letter.service;
 
 import com.miniproject.domain.letter.dto.FileDto;
 import com.miniproject.domain.letter.entity.Letter;
+import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.global.entity.Result;
 
-import java.io.FileNotFoundException;
 
 /**
  * @package : com.miniproject.domain.letter.service
@@ -18,9 +18,8 @@ import java.io.FileNotFoundException;
  * @update-description :
  */
 
-
 public interface LetterService {
-    public Result createLetter(Letter letter, FileDto fileDto);
+    public Result createLetter(Letter letter, FileDto fileDto, UserDto userDto);
 
     public Result retrieveReceiver(int id);
 

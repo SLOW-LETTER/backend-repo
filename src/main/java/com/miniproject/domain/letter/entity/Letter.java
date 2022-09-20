@@ -4,17 +4,8 @@ import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.transportation.entity.Transportation;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.global.entity.TimeEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
+import lombok.*;
 import javax.persistence.*;
-import java.security.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,42 +23,46 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE template SET is_deleted = true WHERE id = ?")
-@Where(clause = "is_deleted = false") // 검색에 대한 filter
+@AllArgsConstructor
+@Builder
+@Table(name = "letter")
 @Setter
+@Data
 @ToString
 public class Letter extends TimeEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private String departureCountry;
 
-    @Column
+    @Column(nullable = false)
     private String departureCity;
 
-    @Column
+    @Column(nullable = false)
     private String arrivalCountry;
 
-    @Column
+    @Column(nullable = false)
     private String arrivalCity;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private String content;
 
-    @Column
+    @Column(nullable = false)
     private String boarding_time; // 타입 나중에 Timestamp로 변경?
 
-    @Column
+    @Column(nullable = false)
     private String departure_time; // 타입 나중에 Timestamp로 변경?
 
-    @Column
+    @Column(nullable = false)
     private boolean isDeleted = Boolean.FALSE;
+
+    @Column(nullable = false)
+    private String receiverId;
 
 //    @ElementCollection (위도 경도)
 //    private List<String> destinationLatLon;
@@ -80,15 +75,20 @@ public class Letter extends TimeEntity {
     @JoinColumn(name = "transportation_id")
     private Transportation transportationId;
 
-    @OneToMany(mappedBy = "letter") // 일대다 매핑 (파일)
-    //private List<File> files = new ArrayList<File>();
-    private Set<File> files;
+//    @OneToMany(mappedBy = "letter") // 일대다 매핑 (파일)
+//    //private List<File> files = new ArrayList<File>();
+//    private Set<File> files;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name="letter_id")
+//    private Set<File> file;
 
     @ManyToOne //n:1 관계 (user : Letter)
     @JoinColumn(name ="sender_id")
-    private User senderId;
+    private User user;
 //
 //    @ManyToOne
-//    private User receiverId;
+//    @JoinColumn(name ="receiver_id")
+//    private User user;
 
 }
