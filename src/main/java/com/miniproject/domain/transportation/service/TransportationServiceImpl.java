@@ -3,7 +3,7 @@ package com.miniproject.domain.transportation.service;
 import com.miniproject.domain.transportation.dto.TransportationDto;
 import com.miniproject.domain.transportation.entity.Transportation;
 import com.miniproject.domain.transportation.repository.TransportationRepository;
-import com.miniproject.global.entity.ErrorCod;
+import com.miniproject.global.error.service.CustomException;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.enumpkg.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,8 @@ public class TransportationServiceImpl implements TransportationService {
                 result.setPayload(optionTransportation.get());
             }
         } else {
-            result.setMessage(ErrorCod.of(ErrorCode.PA02));
+            result.setMessage(ErrorCode.PA02);
+            throw new CustomException(result);
         }
         return result;
     }
@@ -75,7 +76,9 @@ public class TransportationServiceImpl implements TransportationService {
             transportation = transportationRepository.save(updateTransportation.get());
             result.setPayload(transportation);
         } else {
-            result.setMessage(ErrorCod.of(ErrorCode.PA02));
+            result.setMessage(ErrorCode.PA02);
+            throw new CustomException(result);
+            //throw new CustomException(ErrorCode.PA02);
         }
         return result;
     }
@@ -85,7 +88,9 @@ public class TransportationServiceImpl implements TransportationService {
         Result result = new Result();
         boolean isPresent = transportationRepository.findById(transportationId).isPresent();
         if (!isPresent) {
-            result.setMessage(ErrorCod.of(ErrorCode.PA02));
+            result.setMessage(ErrorCode.PA02);
+            throw new CustomException(result);
+            //throw new CustomException(ErrorCode.PA02);
         } else {
             transportationRepository.deletedTransportationByIdl(transportationId);
         }
