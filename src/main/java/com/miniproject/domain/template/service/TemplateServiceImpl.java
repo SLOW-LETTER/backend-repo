@@ -7,31 +7,30 @@ import com.miniproject.global.entity.Result;
 import com.miniproject.global.enumpkg.ErrorCode;
 import com.miniproject.global.error.service.CustomException;
 import org.apache.logging.log4j.LogManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
+ * @author : 김현진
+ * @version : 1.0.0
  * @package : com.miniproject.domain.template.service
  * @name : TemplateServiceImpl
  * @create-date: 2022.09.06
- * @author : 김현진
- * @version : 1.0.0
- *
  * @update-date :
  * @update-author : 000
  * @update-description :
  */
 @Service
+@Slf4j
 public class TemplateServiceImpl implements TemplateService {
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(TemplateServiceImpl.class);
-
     @Autowired
     TemplateRepository repository;
 
     public Result createTemplate(TemplateDto templateDto) {
-        Template template = new Template(templateDto.getFileName(), templateDto.getUrl());
+        Template template = templateDto.toEntity();
         repository.save(template);
         Result result = new Result();
         result.setPayload(template);

@@ -1,12 +1,7 @@
 package com.miniproject.domain.letter.entity;
 
 import com.miniproject.global.entity.TimeEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -25,17 +20,16 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE template SET is_deleted = true WHERE id = ?")
-@Where(clause = "is_deleted = false") // 검색에 대한 filter
+@AllArgsConstructor
+@Builder
+@Data
+@Table(name = "file")
 @Setter
 @ToString
 public class File extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column
-    private String fileName;
 
     @Column
     private String fileUrl;
@@ -47,10 +41,10 @@ public class File extends TimeEntity {
     @JoinColumn(name ="letter_id")
     private Letter letter;
 
-    public File(String fileName, String fileUrl) {
-        this.fileName = fileName;
+//    @Column(name="letter_id")
+//    private int letterId;
+
+    public File(String fileUrl) {
         this.fileUrl = fileUrl;
     }
-
-
 }

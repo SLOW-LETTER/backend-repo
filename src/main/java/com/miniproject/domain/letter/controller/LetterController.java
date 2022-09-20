@@ -5,6 +5,7 @@ import com.miniproject.domain.letter.entity.Letter;
 import com.miniproject.domain.letter.repository.FileRepository;
 import com.miniproject.domain.letter.repository.LetterRepository;
 import com.miniproject.domain.letter.service.LetterService;
+import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.file.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,6 @@ import java.io.IOException;
 @RequestMapping(value = "/api/v1/letters")
 @RequiredArgsConstructor
 public class LetterController {
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(LetterController.class);
-
     private final S3Service s3Service;
 
     @Autowired
@@ -47,12 +46,12 @@ public class LetterController {
 //    FileService fileService;
 
     @PostMapping
-    public Result createLetter(Letter letter, FileDto fileDto) throws IOException{
+    public Result createLetter(Letter letter, FileDto fileDto, UserDto userDto) throws IOException{
         //String id = Integer.toString(letter.getId()); // letter id 별로 버킷에 저장위한 형변환
         String url = s3Service.uploadFile(fileDto.getFile(), letter.getId()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
         fileDto.setUrl(url);
         //Result resultTest = fileService.createFile(fileDto);
-        Result result = letterService.createLetter(letter, fileDto);
+        Result result = letterService.createLetter(letter, fileDto, userDto);
         return result;
     }
 
