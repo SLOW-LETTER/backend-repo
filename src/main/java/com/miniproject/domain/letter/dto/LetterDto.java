@@ -1,5 +1,6 @@
 package com.miniproject.domain.letter.dto;
 
+import com.miniproject.domain.letter.entity.Letter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class LetterDto {
     public String receiverEmail;
+    public String senderEmail;
     public String templateId;
     public String transportationId;
     public String departureCountry;
@@ -29,4 +31,11 @@ public class LetterDto {
     public String arrivalCity;
     public String title;
     public String content;
+
+    public Letter toEntity() {
+        Letter letter = Letter.builder()
+                .templateId(templateId)
+                .transportationId(transportationId)
+                .departureCity(departureCity)
+    }
 }
