@@ -25,7 +25,7 @@ public class ErrorCod {
 
 	private String code;
 	private String message;
-	private HttpStatus status;
+	private int status;
 	
 	public ErrorCod(ErrorCode code) {
 		this.message = code.getMessage();
