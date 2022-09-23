@@ -32,10 +32,9 @@ public class LetterDto {
     public String title;
     public String content;
 
-    public Letter toEntity() {
-        Letter letter = Letter.builder()
-                .templateId(templateId)
-                .transportationId(transportationId)
-                .departureCity(departureCity)
-    }
+//    public Letter toEntity() {
+//        Letter letter = Letter.builder()
+//                .transportationId(transportationId)
+//                .departureCity(departureCity)
+//    }
 }
