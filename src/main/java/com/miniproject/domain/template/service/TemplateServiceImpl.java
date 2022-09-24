@@ -4,6 +4,9 @@ import com.miniproject.domain.template.dto.TemplateDto;
 import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.template.repository.TemplateRepository;
 import com.miniproject.global.entity.Result;
+import com.miniproject.global.enumpkg.ErrorCode;
+import com.miniproject.global.error.service.CustomException;
+import org.apache.logging.log4j.LogManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +50,8 @@ public class TemplateServiceImpl implements TemplateService {
         Result result = new Result();
         boolean isPresent = repository.findById(id).isPresent();
         if (!isPresent) {
-            //result.setError(new ErrorResponse(ServiceResult.NOTEXIST.toString()));
+            result.setMessage(ErrorCode.PA02);
+            throw new CustomException(result);
         } else {
             repository.deleteById(id);
         }
