@@ -16,6 +16,8 @@ import javax.persistence.*;
  * @update-description :
  */
 @Entity
+@Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -26,7 +28,7 @@ import javax.persistence.*;
 public class Template extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     private String fileUrl;

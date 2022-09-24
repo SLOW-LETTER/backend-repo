@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @package : com.miniproject.domain.letter.repository;
@@ -24,7 +25,13 @@ import java.util.List;
 
 @Repository
 public interface LetterRepository extends JpaRepository<Letter, Integer> {
-    public List<Letter> findAllByOrderByIdDesc();
+    public Optional<Letter> findAllByOrderByIdDesc();
+
+    @Query(value = "select * from letter where sender_id=CAST(:senderId as int)", nativeQuery = true)
+    public List<Letter> findAllByOrderBySenderIdDesc(@Param("senderId") Long senderId);
+
+    @Query(value = "select * from letter where receiver_id=CAST(:receiverId as int)", nativeQuery = true)
+    public List<Letter> findAllByOrderByReceiverIdDesc(@Param("receiverId") Long receiverId);
 
     @Transactional
     @Modifying(clearAutomatically = true)

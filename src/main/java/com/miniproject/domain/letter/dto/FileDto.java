@@ -1,7 +1,7 @@
 package com.miniproject.domain.letter.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.miniproject.domain.letter.entity.File;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,7 +18,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
+@Builder
 public class FileDto {
     private String url;
     private MultipartFile file;
+
+    public File toEntity(){
+        File file = File.builder()
+                .fileUrl(url)
+                .build();
+        return file;
+    }
 }

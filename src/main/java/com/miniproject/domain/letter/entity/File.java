@@ -37,14 +37,14 @@ public class File extends TimeEntity {
     @Column
     private boolean isDeleted = Boolean.FALSE;
 
-    @ManyToOne // n:1 관계 (File : Letter)
+    @ManyToOne(cascade = CascadeType.ALL) // n:1 관계 (File : Letter)
     @JoinColumn(name ="letter_id")
     private Letter letter;
 
 //    @Column(name="letter_id")
 //    private int letterId;
 
-    public File(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
+//    public File(String fileUrl) {
+//        this.fileUrl = fileUrl;
+//    }
 }
