@@ -32,6 +32,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select * from users where is_deleted =false and email=CAST(:email as varchar)", nativeQuery = true)
     Optional<User> findByEmailIsNotDeleted(@Param("email") String email);
 
+
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "update users set is_deleted = true, withdraw_feedback = CAST(:withdrawFeedback as varchar) where email = CAST(:email as varchar)", nativeQuery = true)

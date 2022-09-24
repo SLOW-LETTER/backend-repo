@@ -3,8 +3,6 @@ package com.miniproject.domain.letter.dto;
 import com.miniproject.domain.letter.entity.Letter;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
-
 
 /**
  * @package : com.miniproject.domain.letter.dto;
@@ -21,20 +19,31 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class LetterDto {
-    public String receiverEmail;
-    public String senderEmail;
-    public String templateId;
-    public String transportationId;
-    public String departureCountry;
-    public String departureCity;
-    public String arrivalCountry;
-    public String arrivalCity;
-    public String title;
-    public String content;
+    private String receiverEmail;
+    private String boardingTime;
+    private String departureTime;
+    private String departureCountry;
+    private String departureCity;
+    private String arrivalCountry;
+    private String arrivalCity;
+    private String title;
+    private String content;
+    private int templateId;
+    private int transportationId;
 
-//    public Letter toEntity() {
-//        Letter letter = Letter.builder()
-//                .transportationId(transportationId)
-//                .departureCity(departureCity)
-//    }
+    public Letter toEntity(){
+        Letter letter = Letter.builder()
+                .departureCountry(departureCountry)
+                .departureCity(departureCity)
+                .arrivalCity(arrivalCity)
+                .arrivalCountry(arrivalCountry)
+                .title(title)
+                .content(content)
+                .boardingTime(boardingTime)
+                .departureTime(departureTime)
+                .receiverEmail(receiverEmail)
+                .build();
+        return letter;
+    }
+
 }

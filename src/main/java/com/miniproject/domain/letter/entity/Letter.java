@@ -1,12 +1,12 @@
 package com.miniproject.domain.letter.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.transportation.entity.Transportation;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.global.entity.TimeEntity;
 import lombok.*;
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * @package : com.miniproject.domain.letter.entity;
@@ -53,42 +53,34 @@ public class Letter extends TimeEntity {
     private String content;
 
     @Column(nullable = false)
-    private String boarding_time; // 타입 나중에 Timestamp로 변경?
+    private String boardingTime; // 타입 나중에 Timestamp로 변경?
 
     @Column(nullable = false)
-    private String departure_time; // 타입 나중에 Timestamp로 변경?
+    private String departureTime; // 타입 나중에 Timestamp로 변경?
 
     @Column(nullable = false)
     private boolean isDeleted = Boolean.FALSE;
 
-    @Column(nullable = false)
-    private String receiverId;
+    private String receiverEmail;
 
 //    @ElementCollection (위도 경도)
 //    private List<String> destinationLatLon;
 
     @OneToOne(fetch = FetchType.LAZY) // 일대일 매핑 (탬플릿)
     @JoinColumn(name = "template_id")
+    @JsonIgnore
     private Template templateId;
 
     @OneToOne(fetch = FetchType.LAZY) // 일대일 매핑 (교통수단)
     @JoinColumn(name = "transportation_id")
+    @JsonIgnore
     private Transportation transportationId;
 
-//    @OneToMany(mappedBy = "letter") // 일대다 매핑 (파일)
-//    //private List<File> files = new ArrayList<File>();
-//    private Set<File> files;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="receiver_id")
+    private User receiver;
 
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinColumn(name="letter_id")
-//    private Set<File> file;
-
-    @ManyToOne //n:1 관계 (user : Letter)
-    @JoinColumn(name ="sender_id")
-    private User user;
-//
-//    @ManyToOne
-//    @JoinColumn(name ="receiver_id")
-//    private User user;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sender_id")
+    private User sender;
 }

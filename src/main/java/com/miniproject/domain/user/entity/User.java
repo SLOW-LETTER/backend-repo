@@ -2,15 +2,14 @@ package com.miniproject.domain.user.entity;
 
 import javax.persistence.*;
 
+import com.miniproject.domain.letter.entity.Letter;
 import com.miniproject.global.entity.TimeEntity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -115,7 +114,9 @@ public class User extends TimeEntity implements UserDetails {
         return true;
     }
 
-//    @OneToMany(mappedBy = "sender")
-//    private Set<>
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
+    private List<Letter> receiveLetters = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
+    private List<Letter> letters = new ArrayList<>();
 }
