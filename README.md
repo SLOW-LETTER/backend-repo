@@ -41,7 +41,7 @@
 ||||<img src="https://img.shields.io/badge/NOTION-000000?style=for-the-badge&logo=NOTION&logoColor=FFFFFF">|
 
 <hr/>
-<h1 :busts_in_silhouette:>팀원 역할</h1>
+<h1>:busts_in_silhouette: 팀원 역할</h1>
 
 |Name|용준현|한정욱|원우연|박수현|김현진|
 |---|---|---|---|---|---|
