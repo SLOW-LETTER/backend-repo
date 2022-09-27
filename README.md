@@ -14,7 +14,7 @@
 저희 서비스를 통해 즐거운 경험을 하시면 좋겠습니다. 감사합니다!
 </p>
 <h1>:office: 소프트웨어 아키텍쳐</h1>
-<img width="992" alt="arch" src="https://user-images.githubusercontent.com/93856060/192429473-c20ba492-3899-43aa-8e93-2cde2ef5a1fb.png">
+<img width="600" alt="arch" src="https://user-images.githubusercontent.com/93856060/192429473-c20ba492-3899-43aa-8e93-2cde2ef5a1fb.png">
 <h1>기술스택</h1>
 <h1>:open_file_folder: Tech Stack</h1>
 
