@@ -13,4 +13,28 @@
 저희 서비스를 통해 즐거운 경험을 하시면 좋겠습니다. 감사합니다!
 </p>
 <h1>소프트웨어 아키텍쳐</h1>
-<img src="./arch.png" width="400px" height="300px"></img>
+<img width="992" alt="arch" src="https://user-images.githubusercontent.com/93856060/192429473-c20ba492-3899-43aa-8e93-2cde2ef5a1fb.png">
+<h1>기술스택</h1>
+<h1>:open_file_folder: Tech Stack</h1>
+
+```
+- Frontend: React, javascript, typescript
+- Backend : SpringBoot, java
+- Web Server: Nginx
+- Database: PostgreSQL
+- Deployment: Docker, AWS S3
+- API Test : Postman
+- API Documentation : Swagger
+- Version control: Git, Github, Gitkraken
+- Monitoring: Prometheus, Grafana
+- Development Environment : Visual studio code, Intellj
+```
+
+|Frontend|Backend|Devops|other|
+|---|---|---|---|
+|<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=FFFFFF" width="100px" height="50px" padding="100px" style=for-the-badge>|<img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=FFFFFF" width="100px" height="50px">|
+|<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white" width="100px" height="50px">|<img alt="AWS" src="https://img.shields.io/badge/Amazon AWS-f7f7f7?style=for-the-badge&logo=Amazon AWS&logoColor=f89400" width="100px" height="50px">|<img src="https://img.shields.io/badge/GIT-F05032?style=for-the-badge&logo=Git&logoColor=FFFFFF" width="100px" height="50px">||
+|<img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/GITHUB-black?style=for-the-badge&logo=GITHUB&logoColor=FFFFFF" width="100px" height="50px">|
+||||<img src="https://img.shields.io/badge/VSCODE-007ACC?style=for-the-badge&logo=VISUALSTUDIOCODE&logoColor=FFFFFF" width="100px" height="50px">|
+||||<img src="https://img.shields.io/badge/SLACK-4A154B?style=for-the-badge&logo=SLACK&logoColor=FFFFFF" width="100px" height="50px">|
+||||<img src="https://img.shields.io/badge/NOTION-000000?style=for-the-badge&logo=NOTION&logoColor=FFFFFF" width="100px" height="50px">|
