@@ -1,6 +1,6 @@
 # SlowLetter
 <hr/>
-<h1>주제 소개</h1>
+<h1>:bulb: 주제 소개</h1>
 <p>실시간 메신저가 등장하기 전, 밤새 펜팔 답장을 기다려보신 추억을 잊지못하고 계신가요?
 그럼 이 서비스를 통해 추억을 다시 되살려보세요!
 
@@ -13,7 +13,7 @@
 <br>
 저희 서비스를 통해 즐거운 경험을 하시면 좋겠습니다. 감사합니다!
 </p>
-<h1>소프트웨어 아키텍쳐</h1>
+<h1>:office: 소프트웨어 아키텍쳐</h1>
 <img width="992" alt="arch" src="https://user-images.githubusercontent.com/93856060/192429473-c20ba492-3899-43aa-8e93-2cde2ef5a1fb.png">
 <h1>기술스택</h1>
 <h1>:open_file_folder: Tech Stack</h1>
@@ -41,7 +41,7 @@
 ||||<img src="https://img.shields.io/badge/NOTION-000000?style=for-the-badge&logo=NOTION&logoColor=FFFFFF">|
 
 <hr/>
-<h1>팀원 역할</h1>
+<h1 :busts_in_silhouette:>팀원 역할</h1>
 
 |Name|용준현|한정욱|원우연|박수현|김현진|
 |---|---|---|---|---|---|
