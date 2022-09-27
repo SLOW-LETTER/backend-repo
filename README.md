@@ -31,10 +31,18 @@
 ```
 
 |Frontend|Backend|Devops|other|
-|---|---|---|------------------------|
+|---|---|---|---|
 |<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=FFFFFF" width="100px" height="50px" padding="100px" style=for-the-badge>|<img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=FFFFFF" width="100px" height="50px">|
 |<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white" width="100px" height="50px">|<img alt="AWS" src="https://img.shields.io/badge/Amazon AWS-f7f7f7?style=for-the-badge&logo=Amazon AWS&logoColor=f89400" width="100px" height="50px">|<img src="https://img.shields.io/badge/GIT-F05032?style=for-the-badge&logo=Git&logoColor=FFFFFF" width="100px" height="50px">||
 |<img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=FFFFFF" width="100px" height="50px">|<img src="https://img.shields.io/badge/GITHUB-black?style=for-the-badge&logo=GITHUB&logoColor=FFFFFF" width="100px" height="50px">|
 ||||<img src="https://img.shields.io/badge/VSCODE-007ACC?style=for-the-badge&logo=VISUALSTUDIOCODE&logoColor=FFFFFF" width="100px" height="50px">|
 ||||<img src="https://img.shields.io/badge/SLACK-4A154B?style=for-the-badge&logo=SLACK&logoColor=FFFFFF" width="100px" height="50px">|
 ||||<img src="https://img.shields.io/badge/NOTION-000000?style=for-the-badge&logo=NOTION&logoColor=FFFFFF" width="100px" height="50px">|
+
+<hr/>
+<h1>팀원 역할</h1>
+
+|Name|용준현|한정욱|원우연|박수현|김현진|
+|---|---|---|---|---|---|
+|Role|Frontend, DevOps|Frontend|Backend|Backend, DevOps|Backend|
+|GitHub|[@Pione3r](https://github.com/pione3r)|[@Nowrobin](https://github.com/nowrobin)|[@Coincidence-one](https://github.com/coincidence-one)|[@Vivian0304](https://github.com/vivian0304)|[@hyeonjin9819](https://github.com/hyeonjin9819)|
