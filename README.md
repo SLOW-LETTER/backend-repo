@@ -45,4 +45,4 @@
 |Name|용준현|한정욱|원우연|박수현|김현진|
 |---|---|---|---|---|---|
 |Role|Frontend, DevOps|Frontend|Backend|Backend, DevOps|Backend|
-|GitHub|[@Pione3r](https://github.com/pione3r)|[@Nowrobin](https://github.com/nowrobin)|[@Coincidence-one](https://github.com/coincidence-one)|[@Vivian0304](https://github.com/vivian0304)|[@hyeonjin9819](https://github.com/hyeonjin9819)|
+|GitHub|[@Pione3r](https://github.com/pione3r)|[@Nowrobin](https://github.com/nowrobin)|[@Coincidence-one](https://github.com/coincidence-one)|[@Vivian0304](https://github.com/vivian0304)|[@Hyeonjin9819](https://github.com/hyeonjin9819)|
