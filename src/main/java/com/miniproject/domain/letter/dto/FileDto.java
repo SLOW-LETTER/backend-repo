@@ -1,6 +1,7 @@
 package com.miniproject.domain.letter.dto;
 
 import com.miniproject.domain.letter.entity.File;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,8 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @NoArgsConstructor
 @Builder
+//@Schema(description = "편지 파일 DTO")
 public class FileDto {
+    @Schema(description = "파일 첨부 사진", hidden = true)
     private String url;
+
+    @Schema(description = "파일 첨부 사진")
     private MultipartFile file;
 
     public File toEntity(){

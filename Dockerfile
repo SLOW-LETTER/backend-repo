@@ -1,6 +1,8 @@
 FROM openjdk:11-jdk
 # 기본 이미지
 
+#LABEL maintainer="jiys@tidesquare.com"
+
 VOLUME /tmp
 # 데이터 보존을 위한 Volume 마운트
 
