@@ -56,7 +56,7 @@ public class Letter extends TimeEntity {
     private String boardingTime; // 타입 나중에 Timestamp로 변경?
 
     @Column(nullable = false)
-    private String departureTime; // 타입 나중에 Timestamp로 변경?
+    private String arrivalTime; // 타입 나중에 Timestamp로 변경?
 
     @Column(nullable = false)
     private boolean isDeleted = Boolean.FALSE;

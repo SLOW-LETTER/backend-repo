@@ -76,7 +76,6 @@ public class LetterServiceImpl implements LetterService{
         Optional<User> receiverUser = userRepository.findByEmail(letter.getReceiverEmail());
         letter.setReceiver(receiverUser.get());
         Optional<Template> templateLetter = templateRepository.findById(letterDto.getTemplateId());
-        log.info(String.valueOf(templateLetter.isPresent()));
         letter.setTemplateId(templateLetter.get());
         Optional<Transportation> transportationLetter = transportationRepository.findById(letterDto.getTransportationId());
         letter.setTransportationId(transportationLetter.get());
@@ -115,7 +114,7 @@ public class LetterServiceImpl implements LetterService{
             retrieveReceiverObj.put("arrivalCountry", receiverLetter.get(i).getArrivalCountry());
             retrieveReceiverObj.put("arrivalCity", receiverLetter.get(i).getArrivalCity());
             retrieveReceiverObj.put("boardingTime", receiverLetter.get(i).getBoardingTime());
-            retrieveReceiverObj.put("departureTime", receiverLetter.get(i).getDepartureTime());
+            retrieveReceiverObj.put("arrivalTime", receiverLetter.get(i).getArrivalTime());
             retrieveReceiverArray.add(retrieveReceiverObj);
             log.info((String) retrieveReceiverObj.get(i));
         }
@@ -143,7 +142,7 @@ public class LetterServiceImpl implements LetterService{
             retrieveSenderObj.put("arrivalCountry", senderLetter.get(i).getArrivalCountry());
             retrieveSenderObj.put("arrivalCity", senderLetter.get(i).getArrivalCity());
             retrieveSenderObj.put("boardingTime", senderLetter.get(i).getBoardingTime());
-            retrieveSenderObj.put("departureTime", senderLetter.get(i).getDepartureTime());
+            retrieveSenderObj.put("arrivalTime", senderLetter.get(i).getArrivalTime());
             retrieveSenderArray.add(retrieveSenderObj);
             log.info((String) retrieveSenderObj.get(i));
         }
