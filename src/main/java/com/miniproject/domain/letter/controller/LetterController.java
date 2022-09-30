@@ -49,8 +49,8 @@ public class LetterController {
     @Autowired
     LetterRepository letterRepository;
 
-    @Autowired
-    FileRepository fileRepository;
+//    @Autowired
+//    FileRepository fileRepository;
 
     @Autowired
     LetterService letterService;
@@ -86,13 +86,13 @@ public class LetterController {
             @Parameter(name="transportationId", description = "교통수단 아이디 값", example= "1", required = true, in = ParameterIn.QUERY,
                     schema = @Schema(description ="교통수단 아이디 값", type ="integer", nullable = false, example="1")),
     })
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Result createLetter(@Parameter(hidden = true) LetterDto letterDto, @ModelAttribute FileDto fileDto, @Parameter(hidden = true) UserDto userDto, @RequestHeader("X-AUTH-TOKEN") String token) throws IOException{
+    @PostMapping
+    public Result createLetter(@Parameter(hidden = true) LetterDto letterDto, @Parameter(hidden = true) FileDto fileDto, @Parameter(hidden = true) UserDto userDto, @RequestHeader("X-AUTH-TOKEN") String token) throws IOException{
         Letter letter = letterDto.toEntity();
-        if(fileDto.getFile() != null) {
-            String url = s3Service.uploadFile(fileDto.getFile(), letter.getTitle()+ letter.getBoardingTime()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
-            fileDto.setUrl(url);
-        }
+//        if(fileDto.getFile() != null) {
+//            String url = s3Service.uploadFile(fileDto.getFile(), letter.getTitle()+ letter.getBoardingTime()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
+//            fileDto.setUrl(url);
+//        }
         Result result = letterService.createLetter(letterDto, fileDto, userDto, token);
         return result;
     }
