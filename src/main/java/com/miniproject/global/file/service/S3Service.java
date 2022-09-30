@@ -45,6 +45,9 @@ public class S3Service {
             case "png":
                 contentType = "image/png";
                 break;
+            case "svg":
+                contentType = "image/svg";
+                break;
         }
 
         try {
