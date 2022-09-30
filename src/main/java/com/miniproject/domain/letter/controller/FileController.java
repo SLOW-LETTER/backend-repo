@@ -53,7 +53,7 @@ public class FileController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Result createFile(@ModelAttribute FileDto fileDto) throws IOException {
         if(fileDto.getFile() != null) {
-            String url = s3Service.uploadFile(fileDto.getFile(), "files"); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
+            String url = s3Service.uploadFile(fileDto.getFile(), "letters/" + fileDto.getLetterId()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
             fileDto.setUrl(url);
         }
         Result result = fileService.createFile(fileDto);
