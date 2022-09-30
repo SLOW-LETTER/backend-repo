@@ -13,6 +13,7 @@ import com.miniproject.domain.transportation.repository.TransportationRepository
 import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.domain.user.repository.UserRepository;
+import com.miniproject.global.entity.CustomException;
 import com.miniproject.global.entity.ErrorCod;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.enumpkg.ErrorCode;
@@ -49,8 +50,8 @@ public class LetterServiceImpl implements LetterService{
     @Autowired
     LetterRepository letterRepository;
 
-    @Autowired
-    FileRepository fileRepository;
+//    @Autowired
+//    FileRepository fileRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -83,11 +84,12 @@ public class LetterServiceImpl implements LetterService{
         user.getLetters().add(letter);
         user.getReceiveLetters().add(letter);
 
-        if(fileDto.getFile() != null) {
-            File file = fileDto.toEntity();
-            file.setLetter(letter);
-            fileRepository.save(file);
-        }
+        //일단 버려2
+//        if(fileDto.getFile() != null) {
+//            File file = fileDto.toEntity();
+//            file.setLetter(letter);
+//            fileRepository.save(file);
+//        }
 
         letter = letterRepository.save(letter);
 
@@ -169,7 +171,7 @@ public class LetterServiceImpl implements LetterService{
                 result.setPayload(retrieveLetterObj);
             }
             else{
-                result.setMessage(ErrorCod.of(ErrorCode.PA02));
+                result.setMessage(ErrorCode.PA02);
             }
         }
         return result;
@@ -180,11 +182,10 @@ public class LetterServiceImpl implements LetterService{
         Result result = new Result();
         boolean isPresent = letterRepository.findById(id).isPresent();
         if(!isPresent) {
-            result.setMessage(ErrorCod.of(ErrorCode.PA02));
+            result.setMessage(ErrorCode.PA02);
         } else {
             letterRepository.deleteById(id);
         }
-        //result.setMessage("편지 삭제 성공");
         return result;
     }
 }

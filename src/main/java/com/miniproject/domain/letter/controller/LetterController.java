@@ -49,8 +49,8 @@ public class LetterController {
     @Autowired
     LetterRepository letterRepository;
 
-    @Autowired
-    FileRepository fileRepository;
+//    @Autowired
+//    FileRepository fileRepository;
 
     @Autowired
     LetterService letterService;
@@ -86,16 +86,13 @@ public class LetterController {
             @Parameter(name="transportationId", description = "교통수단 아이디 값", example= "1", required = true, in = ParameterIn.QUERY,
                     schema = @Schema(description ="교통수단 아이디 값", type ="integer", nullable = false, example="1")),
     })
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Result createLetter(@Parameter(hidden = true) LetterDto letterDto, @ModelAttribute FileDto fileDto, @Parameter(hidden = true) UserDto userDto, @RequestHeader("X-AUTH-TOKEN") String token) throws IOException{
+    @PostMapping
+    public Result createLetter(@Parameter(hidden = true) LetterDto letterDto, @Parameter(hidden = true) FileDto fileDto, @Parameter(hidden = true) UserDto userDto, @RequestHeader("X-AUTH-TOKEN") String token) throws IOException{
         Letter letter = letterDto.toEntity();
-        //String id = Integer.toString(letter.getId()); // letter id 별로 버킷에 저장위한 형변환
-        log.info(String.valueOf(letter.getId())); // 아마 생성과 동시에 생기거라 안되는 것 같음
-        if(fileDto.getFile() != null) {
-            String url = s3Service.uploadFile(fileDto.getFile(), "letter"); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
-            fileDto.setUrl(url);
-        }
-        //Result resultTest = fileService.createFile(fileDto);
+//        if(fileDto.getFile() != null) {
+//            String url = s3Service.uploadFile(fileDto.getFile(), letter.getTitle()+ letter.getBoardingTime()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
+//            fileDto.setUrl(url);
+//        }
         Result result = letterService.createLetter(letterDto, fileDto, userDto, token);
         return result;
     }
@@ -112,12 +109,12 @@ public class LetterController {
         return result;
     }
 
+    // 편지 받는 사람 조회 (유저가 받은 편지들 조회)
     @Operation(summary = "편지 받은 사람 조회 (유저가 받은 편지들 조회)", description = "편지 받은 사람 조회 (유저가 받은 편지들 조회) api입니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "편지 받은 사람 조회 (유저가 받은 편지들 조회) 성공"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = Error.class)))
     })
-    // 편지 받는 사람 조회 (유저가 받은 편지들 조회)
     @GetMapping("/receiver")
     public Result retrieveReceiverList(@Parameter(hidden = true) UserDto userDto, @RequestHeader("X-AUTH-TOKEN") String token){
         Result result = letterService.retrieveReceiverList(userDto,token);
