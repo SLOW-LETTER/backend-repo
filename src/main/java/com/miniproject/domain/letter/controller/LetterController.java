@@ -7,8 +7,11 @@ import com.miniproject.domain.letter.repository.FileRepository;
 import com.miniproject.domain.letter.repository.LetterRepository;
 import com.miniproject.domain.letter.service.LetterService;
 import com.miniproject.domain.user.dto.UserDto;
+import com.miniproject.domain.user.entity.User;
+import com.miniproject.domain.user.repository.UserRepository;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.file.service.S3Service;
+import com.miniproject.global.jwt.service.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -25,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @package : com.miniproject.domain.letter.controller;
@@ -53,10 +57,13 @@ public class LetterController {
     FileRepository fileRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     LetterService letterService;
 
-    // 편지 생성, AWS 경로 수정 필요
-    // DTO에도 스웨거에 맞게 수정 필요
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Operation(summary = "Letter 생성", description = "Letter 생성 api입니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Letter 생성 성공"),
@@ -89,11 +96,15 @@ public class LetterController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Result createLetter(@Parameter(hidden = true) LetterDto letterDto, @ModelAttribute FileDto fileDto, @Parameter(hidden = true) UserDto userDto, @RequestHeader("X-AUTH-TOKEN") String token) throws IOException{
         Letter letter = letterDto.toEntity();
+        String senderEmail = jwtTokenProvider.getUserPk(token);
+        Optional<User> senderUser = userRepository.findByEmail(senderEmail);
+        // AWS 경로: users/ {userId} / letters/ {boardingTime}
         if(fileDto.getFile() != null) {
-            String url = s3Service.uploadFile(fileDto.getFile(), letter.getTitle()+ letter.getBoardingTime()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
+            String url = s3Service.uploadFile(fileDto.getFile(), "users/"+ senderUser.get().getId()  + "/letters/" + letter.getBoardingTime()); // 뒤에 dir 경로?
             fileDto.setUrl(url);
         }
         Result result = letterService.createLetter(letterDto, fileDto, userDto, token);
+
         return result;
     }
 

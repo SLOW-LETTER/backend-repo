@@ -59,7 +59,7 @@ public class TemplateController {
     })
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Result createTemplate(@ModelAttribute TemplateDto templateDto) throws IOException {
-        String url = s3Service.uploadFile(templateDto.getFile(), "templates");
+        String url = s3Service.uploadFile(templateDto.getFile(), "templates/");
         templateDto.setUrl(url);
         Result result = templateService.createTemplate(templateDto);
         return result;
