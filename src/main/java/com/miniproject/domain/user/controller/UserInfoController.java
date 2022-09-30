@@ -79,7 +79,7 @@ public class UserInfoController {
     public Result updateUserInfo(@RequestHeader("X-AUTH-TOKEN") String token, @ModelAttribute UserFileDto userFileDto) throws IOException {
         User user = userFileDto.toEntity();
         if (userFileDto.getFile() != null) {
-            String url = s3Service.uploadFile(userFileDto.getFile(), "users");
+            String url = s3Service.uploadFile(userFileDto.getFile(), "users/");
             user.setProfileImageUrl(url);
         }
         String email = jwtTokenProvider.getUserPk(token);
