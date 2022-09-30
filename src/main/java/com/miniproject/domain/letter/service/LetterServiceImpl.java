@@ -13,6 +13,7 @@ import com.miniproject.domain.transportation.repository.TransportationRepository
 import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.domain.user.repository.UserRepository;
+import com.miniproject.global.entity.CustomException;
 import com.miniproject.global.entity.ErrorCod;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.enumpkg.ErrorCode;
@@ -169,7 +170,7 @@ public class LetterServiceImpl implements LetterService{
                 result.setPayload(retrieveLetterObj);
             }
             else{
-                result.setMessage(ErrorCod.of(ErrorCode.PA02));
+                result.setMessage(ErrorCode.PA02);
             }
         }
         return result;
@@ -180,11 +181,10 @@ public class LetterServiceImpl implements LetterService{
         Result result = new Result();
         boolean isPresent = letterRepository.findById(id).isPresent();
         if(!isPresent) {
-            result.setMessage(ErrorCod.of(ErrorCode.PA02));
+            result.setMessage(ErrorCode.PA02);
         } else {
             letterRepository.deleteById(id);
         }
-        //result.setMessage("편지 삭제 성공");
         return result;
     }
 }

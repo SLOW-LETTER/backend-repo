@@ -47,7 +47,6 @@ public class S3Service {
                 break;
         }
 
-
         try {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(contentType);
