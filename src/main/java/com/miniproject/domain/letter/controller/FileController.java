@@ -3,8 +3,11 @@ package com.miniproject.domain.letter.controller;
 import com.miniproject.domain.letter.dto.FileDto;
 import com.miniproject.domain.letter.repository.FileRepository;
 import com.miniproject.domain.letter.service.FileService;
+import com.miniproject.domain.user.entity.User;
+import com.miniproject.domain.user.repository.UserRepository;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.file.service.S3Service;
+import com.miniproject.global.jwt.service.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @author : 김현진
@@ -44,6 +48,16 @@ public class FileController {
     @Autowired
     FileService fileService;
 
+    @Autowired
+    UserRepository userRepository;
+
+    private final JwtTokenProvider jwtTokenProvider;
+
+//    public FileController(JwtTokenProvider jwtTokenProvider, S3Service s3Service) {
+//        this.jwtTokenProvider = jwtTokenProvider;
+//        this.s3Service = s3Service;
+//    }
+
     // 파일 생성
     @Operation(summary = "file 생성", description = "file 생성 api 입니다")
     @ApiResponses(value = {
@@ -51,12 +65,14 @@ public class FileController {
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Result createFile(@ModelAttribute FileDto fileDto) throws IOException {
+    public Result createFile(@ModelAttribute FileDto fileDto, @RequestHeader("X-AUTH-TOKEN") String token) throws IOException {
         if(fileDto.getFile() != null) {
-            String url = s3Service.uploadFile(fileDto.getFile(), "letters/" + fileDto.getLetterId()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
+            String senderEmail = jwtTokenProvider.getUserPk(token);
+            Optional<User> senderUser = userRepository.findByEmail(senderEmail);
+            String url = s3Service.uploadFile(fileDto.getFile(), "users/"+ String.valueOf(senderUser.get().getId()) +"/letters/" + fileDto.getUrl()); // 추후에 뒤 dir 부분은 토큰 or 아이디로?
             fileDto.setUrl(url);
         }
-        Result result = fileService.createFile(fileDto);
+        Result result = fileService.createFile(fileDto, token);
         return result;
     }
 

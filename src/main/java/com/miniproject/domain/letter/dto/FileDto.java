@@ -31,13 +31,13 @@ public class FileDto {
     @Schema(description = "파일 첨부 사진")
     private MultipartFile file;
 
-    @Schema(description = "letter 아이디")
-    private Integer letterId;
+    @Schema (description = "sender 아이디", hidden = true)
+    private Long senderId;
 
     public File toEntity(){
         File file = File.builder()
                 .fileUrl(url)
-                .letterId(letterId)
+                .senderId(senderId)
                 .build();
         return file;
     }

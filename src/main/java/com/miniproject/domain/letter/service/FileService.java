@@ -3,6 +3,7 @@ package com.miniproject.domain.letter.service;
 import com.miniproject.domain.letter.dto.FileDto;
 import com.miniproject.global.entity.Result;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * @author : 김현진
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface FileService {
     // 파일 생성
-    public Result createFile(FileDto fileDto);
+    public Result createFile(FileDto fileDto, @RequestHeader("X-AUTH-TOKEN") String token);
 
     // 파일 조회
     public Result retrieveFileList();

@@ -50,8 +50,8 @@ public class LetterServiceImpl implements LetterService{
     @Autowired
     LetterRepository letterRepository;
 
-//    @Autowired
-//    FileRepository fileRepository;
+    @Autowired
+    FileRepository fileRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -71,6 +71,7 @@ public class LetterServiceImpl implements LetterService{
     public Result createLetter(LetterDto letterDto, FileDto fileDto, UserDto userDto, @RequestHeader("X-AUTH-TOKEN") String token) {
         Letter letter = letterDto.toEntity();
         User user = new User();
+        //File file = new File();
         String senderEmail = jwtTokenProvider.getUserPk(token);
         Optional<User> senderUser = userRepository.findByEmail(senderEmail);
         letter.setSender(senderUser.get());
@@ -85,11 +86,11 @@ public class LetterServiceImpl implements LetterService{
         user.getReceiveLetters().add(letter);
 
         //일단 버려2
-//        if(fileDto.getFile() != null) {
-//            File file = fileDto.toEntity();
-//            file.setLetter(letter);
-//            fileRepository.save(file);
-//        }
+        if(fileDto.getFile() != null) {
+            File file = fileDto.toEntity();
+            file.setLetter(letter);
+            fileRepository.save(file);
+        }
 
         letter = letterRepository.save(letter);
 
