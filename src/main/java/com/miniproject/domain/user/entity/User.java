@@ -56,6 +56,9 @@ public class User extends TimeEntity implements UserDetails {
     @Column
     private String withdrawFeedback;
 
+    @Column
+    private String token;
+
     @Column(nullable = false)
     @Builder.Default
     private String profileImageUrl = "https://slowletter.s3.ap-northeast-2.amazonaws.com/users/default_profile.png";

@@ -1,10 +1,7 @@
 package com.miniproject.global.jwt.service;
 
 import com.miniproject.domain.user.service.UserService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,6 +32,7 @@ public class JwtTokenProvider {
 
     // 토큰 유효시간 30분
     private long tokenValidTime = 30 * 60 * 1000L;
+    private long refreshTokenValidTime = 30 * 500 * 1000L;
 
     private final UserService userDetailsService;
 
@@ -55,6 +53,16 @@ public class JwtTokenProvider {
                 .setExpiration(new Date(now.getTime() + tokenValidTime)) // set Expire Time
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과
                 // signature 에 들어갈 secret값 세팅
+                .compact();
+    }
+
+    // jwt refresh 토큰 생성
+    public String createRefreshToken() {
+        Date now = new Date();
+        return Jwts.builder()
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + refreshTokenValidTime))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
@@ -83,4 +91,18 @@ public class JwtTokenProvider {
             return false;
         }
     }
+
+    // jwt 토큰의 유효성 + 만료일자만 초과한 토큰이면 return true;
+    public boolean validateTokenExceptExpiration(String jwtToken) {
+        try {
+            // if(isLoggedOut(jwtToken)) return false;
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            return claims.getBody().getExpiration().before(new Date());
+        } catch(ExpiredJwtException e) {
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

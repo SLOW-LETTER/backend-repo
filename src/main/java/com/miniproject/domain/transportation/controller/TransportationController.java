@@ -35,9 +35,6 @@ import org.springframework.web.bind.annotation.*;
 public class TransportationController {
 
     @Autowired
-    TransportationRepository transportationRepository;
-
-    @Autowired
     TransportationService transportationService;
 
     @Operation(summary = "transportation 전체 조회", description = "transportation 전체 목록을 조회하는 api입니다")

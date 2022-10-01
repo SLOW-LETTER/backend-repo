@@ -9,10 +9,12 @@ import com.miniproject.global.entity.Result;
 import com.miniproject.global.enumpkg.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -90,6 +92,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
             user = userRepository.save(updateUser.get());
             result.setPayload(user);
+        } else {
+            result.setMessage(ErrorCode.PA02);
+            throw new CustomException(result);
+        }
+        return result;
+    }
+
+    @Override
+    public Result updateToken(String token, User user) {
+        // Optional<User> updateUser = userRepository.findByEmailIsNotDeleted(user.getEmail());
+        Result result = new Result();
+        if (user != null) {
+            userRepository.updateToken(token, user.getEmail());
+            // result.setPayload("");
         } else {
             result.setMessage(ErrorCode.PA02);
             throw new CustomException(result);
