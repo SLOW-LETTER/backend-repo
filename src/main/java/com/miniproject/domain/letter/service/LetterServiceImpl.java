@@ -157,6 +157,7 @@ public class LetterServiceImpl implements LetterService{
     // 편지 내용 조회 (현재 file 부분 추가 필요)
     public Result retrieveLetter(int id) {
         Optional<Letter> optionLetter = letterRepository.findById(id);
+        Optional<File> optionalFile = fileRepository.findAllByOrderByLetterIdDesc(id);
         Result result = new Result();
         JSONObject retrieveLetterObj = new JSONObject();
         if(optionLetter.isPresent()){
@@ -167,7 +168,7 @@ public class LetterServiceImpl implements LetterService{
                 retrieveLetterObj.put("departureCity", optionLetter.get().getDepartureCity());
                 retrieveLetterObj.put("arrivalCity", optionLetter.get().getArrivalCity());
                 retrieveLetterObj.put("transportation", optionLetter.get().getTransportationId().getName());
-                // file 추가 (프론트와 합의 후 구현)
+                retrieveLetterObj.put("fileUrl", optionalFile.get().getFileUrl());
                 result.setPayload(retrieveLetterObj);
             }
             else{

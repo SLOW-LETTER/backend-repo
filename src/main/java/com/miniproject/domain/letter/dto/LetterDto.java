@@ -3,6 +3,10 @@ package com.miniproject.domain.letter.dto;
 import com.miniproject.domain.letter.entity.Letter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @package : com.miniproject.domain.letter.dto;
@@ -36,6 +40,7 @@ public class LetterDto {
     private String content;
     private int templateId;
     private int transportationId;
+
     public Letter toEntity(){
         Letter letter = Letter.builder()
                 .id(id)
