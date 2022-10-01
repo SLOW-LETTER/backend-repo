@@ -50,8 +50,8 @@ public class LetterServiceImpl implements LetterService{
     @Autowired
     LetterRepository letterRepository;
 
-//    @Autowired
-//    FileRepository fileRepository;
+    @Autowired
+    FileRepository fileRepository;
 
     @Autowired
     UserRepository userRepository;
