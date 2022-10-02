@@ -71,7 +71,7 @@ public class LetterController {
     })
     @Parameters({
             @Parameter(name="receiverEmail", description = "수신자 이메일", example= "test1@gmail.com", required = true, in = ParameterIn.QUERY,
-                schema = @Schema(description = "수신자 이메일", type ="string", nullable = false, example="test1@gmail.com")),
+                    schema = @Schema(description = "수신자 이메일", type ="string", nullable = false, example="test1@gmail.com")),
             @Parameter(name="boardingTime", description = "출발 시간", example= "2022-09-24 17:12", required = true, in = ParameterIn.QUERY,
                     schema = @Schema(description ="출발 시간", type ="string", nullable = false, example="2022-09-24 17:12")),
             @Parameter(name="arrivalTime", description = "도착 시간", example= "2022-09-25 02:25", required = true, in = ParameterIn.QUERY,
