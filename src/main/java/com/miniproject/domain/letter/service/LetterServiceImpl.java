@@ -84,12 +84,11 @@ public class LetterServiceImpl implements LetterService{
         user.getLetters().add(letter);
         user.getReceiveLetters().add(letter);
 
-        //일단 버려2
-//        if(fileDto.getFile() != null) {
-//            File file = fileDto.toEntity();
-//            file.setLetter(letter);
-//            fileRepository.save(file);
-//        }
+        if(fileDto.getFile() != null) {
+            File file = fileDto.toEntity();
+            file.setLetter(letter);
+            fileRepository.save(file);
+        }
 
         letter = letterRepository.save(letter);
 

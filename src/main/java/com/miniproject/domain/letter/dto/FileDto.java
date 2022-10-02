@@ -31,13 +31,9 @@ public class FileDto {
     @Schema(description = "파일 첨부 사진")
     private MultipartFile file;
 
-    @Schema(description = "letter 아이디")
-    private Integer letterId;
-
     public File toEntity(){
         File file = File.builder()
                 .fileUrl(url)
-                .letterId(letterId)
                 .build();
         return file;
     }
