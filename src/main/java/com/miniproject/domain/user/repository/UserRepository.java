@@ -23,6 +23,12 @@ import java.util.Optional;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update users set token = CAST(:token as varchar) where email=CAST(:email as varchar)", nativeQuery = true)
+    void updateToken(@Param("token") String token, @Param("email") String email);
+
     @Query(value = "select * from users where is_deleted =false", nativeQuery = true)
     public List<User> findAllByOrderByUserIdDesc();
 
@@ -31,7 +37,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select * from users where is_deleted =false and email=CAST(:email as varchar)", nativeQuery = true)
     Optional<User> findByEmailIsNotDeleted(@Param("email") String email);
-
 
     @Transactional
     @Modifying(clearAutomatically = true)

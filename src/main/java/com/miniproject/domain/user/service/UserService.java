@@ -27,6 +27,8 @@ public interface UserService {
 
     Result updateUserInfo(String email, User user);
 
+    Result updateToken(String email, User user);
+
     Result updateUserInfoSettings(String email, UserDto userDto);
 
     Result updateUserInfoPassword(String email, UserDto userDto, PasswordEncoder passwordEncoder);

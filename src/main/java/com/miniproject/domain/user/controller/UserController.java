@@ -17,9 +17,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+
+import javax.transaction.Transactional;
 
 /**
  * @author : 박수현
@@ -100,16 +103,59 @@ public class UserController {
     })
     @PostMapping("/login")
     public Result login(@Parameter(hidden = true) User userInput) {
-        log.info(userInput.getEmail());
+        Result result = new Result();
+
         User user = userRepository.findByEmailIsNotDeleted(userInput.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
         if (!passwordEncoder.matches(userInput.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        Result result = new Result();
+
         JSONObject token = new JSONObject();
         token.put("token", jwtTokenProvider.createToken(user.getEmail(), user.getRoles()));
+        String refreshToken = jwtTokenProvider.createRefreshToken();
+        userService.updateToken(refreshToken, user);
+        token.put("refreshToken", refreshToken);
         result.setPayload(token);
+        return result;
+    }
+
+    @Operation(summary = "토큰 재발급", description = "토큰을 재발급한다")
+    @Parameters({
+            @Parameter(name = "X-AUTH-TOKEN", description = "access-token", required = true, in = ParameterIn.HEADER,
+                            schema = @Schema(description = "access-token", type = "string", nullable = false)),
+            @Parameter(name = "REFRESH-TOKEN", description = "refresh-token", required = true, in = ParameterIn.HEADER,
+                    schema = @Schema(description = "refresh-token", type = "string", nullable = false))
+    })
+    @PostMapping(value = "/refresh")
+    public Result refreshToken(@RequestHeader(value="X-AUTH-TOKEN") String token, @RequestHeader(value="REFRESH-TOKEN") String refreshToken ) {
+        if(!jwtTokenProvider.validateTokenExceptExpiration(token)) throw new AccessDeniedException("아직 유효한 token입니다");
+        User user = userRepository.findByEmail(jwtTokenProvider.getUserPk(token)).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 TOKEN입니다"));
+        if(!jwtTokenProvider.validateToken(user.getToken()) || !refreshToken.equals(user.getToken()))
+            throw new AccessDeniedException("");
+        user.setToken(jwtTokenProvider.createRefreshToken());
+
+        Result result = new Result();
+        JSONObject tokenJson = new JSONObject();
+        tokenJson.put("token", jwtTokenProvider.createToken(user.getEmail(), user.getRoles()));
+        result.setPayload(token);
+
+        return result;
+    }
+
+    @Operation(summary = "로그 아웃", description = "로그 아웃")
+    @Parameters({
+            @Parameter(name = "X-AUTH-TOKEN", description = "access-token", required = true, in = ParameterIn.HEADER,
+                    schema = @Schema(description = "access-token", type = "string", nullable = false))
+    })
+    @PostMapping(value = "/logout")
+    public Result logout(@RequestHeader(value="X-AUTH-TOKEN") String token) {
+        User user = userRepository.findByEmailIsNotDeleted(jwtTokenProvider.getUserPk(token)).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 TOKEN입니다"));
+        userService.updateToken("invalidate", user);
+
+        Result result = new Result();
+        result.setPayload("success");
+
         return result;
     }
 }
