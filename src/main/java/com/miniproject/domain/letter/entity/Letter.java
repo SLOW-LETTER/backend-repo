@@ -1,20 +1,13 @@
 package com.miniproject.domain.letter.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.miniproject.domain.template.entity.Template;
 import com.miniproject.domain.transportation.entity.Transportation;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.global.entity.TimeEntity;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @package : com.miniproject.domain.letter.entity;
@@ -35,7 +28,6 @@ import java.time.format.DateTimeFormatter;
 @Builder
 @Table(name = "letter")
 @Setter
-@Data
 @ToString
 public class Letter extends TimeEntity {
     @Id
@@ -61,14 +53,14 @@ public class Letter extends TimeEntity {
     private String content;
 
     @Column(nullable = false)
-    private String boardingTime; // 타입 나중에 Timestamp로 변경?
+    private String boardingTime; // 타입 변경 필요할 수도 있을 듯
 
 //    @Column(name ="boarding_time")
 //    @CreatedDate
 //    private String createdDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd.HH.MM"));
 
     @Column(nullable = false)
-    private String arrivalTime; // 타입 나중에 Timestamp로 변경?
+    private String arrivalTime; // 타입 변경 필요할 수도 있을 듯
 
     @Column(nullable = false)
     private boolean isDeleted = Boolean.FALSE;

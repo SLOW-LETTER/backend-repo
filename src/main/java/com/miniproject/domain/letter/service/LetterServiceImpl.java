@@ -13,8 +13,6 @@ import com.miniproject.domain.transportation.repository.TransportationRepository
 import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.domain.user.entity.User;
 import com.miniproject.domain.user.repository.UserRepository;
-import com.miniproject.global.entity.CustomException;
-import com.miniproject.global.entity.ErrorCod;
 import com.miniproject.global.entity.Result;
 import com.miniproject.global.enumpkg.ErrorCode;
 import com.miniproject.global.jwt.service.JwtTokenProvider;

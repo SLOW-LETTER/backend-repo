@@ -2,7 +2,6 @@ package com.miniproject.domain.letter.service;
 
 import com.miniproject.domain.letter.dto.FileDto;
 import com.miniproject.domain.letter.dto.LetterDto;
-import com.miniproject.domain.letter.entity.Letter;
 import com.miniproject.domain.user.dto.UserDto;
 import com.miniproject.global.entity.Result;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -31,5 +30,6 @@ public interface LetterService {
     // 편지 내용 조회
     public Result retrieveLetter(int id);
 
+    // 편지 삭제
     public Result deleteLetter(int id);
 }

@@ -40,11 +40,4 @@ public class File extends TimeEntity {
     @ManyToOne(cascade = CascadeType.ALL) // n:1 관계 (File : Letter)
     @JoinColumn(name ="letter_id")
     private Letter letter;
-
-//    @Column(name="letter_id")
-//    private int letterId;
-
-//    public File(String fileUrl) {
-//        this.fileUrl = fileUrl;
-//    }
 }

@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @NoArgsConstructor
 @Builder
-//@Schema(description = "편지 파일 DTO")
 public class FileDto {
     @Schema(description = "파일 첨부 사진", hidden = true)
     private String url;
