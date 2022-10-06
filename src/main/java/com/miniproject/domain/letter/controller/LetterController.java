@@ -64,6 +64,7 @@ public class LetterController {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    // 편지 작성
     @Operation(summary = "Letter 생성", description = "Letter 생성 api입니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Letter 생성 성공"),
@@ -98,13 +99,11 @@ public class LetterController {
         Letter letter = letterDto.toEntity();
         String senderEmail = jwtTokenProvider.getUserPk(token);
         Optional<User> senderUser = userRepository.findByEmail(senderEmail);
-        // AWS 경로: users/ {userId} / letters/ {boardingTime}
         if(fileDto.getFile() != null) {
-            String url = s3Service.uploadFile(fileDto.getFile(), "users/"+ senderUser.get().getId()  + "/letters/" + letter.getBoardingTime()); // 뒤에 dir 경로?
+            String url = s3Service.uploadFile(fileDto.getFile(), "users/"+ senderUser.get().getId()  + "/letters/" + letter.getBoardingTime()); // AWS 경로 참고: users/ {userId} / letters/ {boardingTime}
             fileDto.setUrl(url);
         }
         Result result = letterService.createLetter(letterDto, fileDto, userDto, token);
-
         return result;
     }
 
