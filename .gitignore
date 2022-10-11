@@ -38,3 +38,6 @@ out/
 
 ### aws S3 ###
 application.properties
+
+###env ###
+application-env.properties
